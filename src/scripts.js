@@ -31,8 +31,8 @@ const newUser = new User(user);
 const hydration = new Hydration(hydrationData);
 const sleep = new Sleep(sleepData);
 const activity = new Activity(activityData)
-const friendNames = returnFriendInfo(friend.name);
-const friendSteps = returnFriendInfo(friend.steps);
+const friendNames = returnFriendInfo('name');
+const friendSteps = returnFriendInfo('steps');
 const stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
 
 $('#user-name').text(newUser.returnUserFirstName());
@@ -50,7 +50,7 @@ $('#user-sleep-quality-by-week').text(sleep.returnSleepQualityByWeek(user.id, cu
 $('#user-average-sleep-quality').text(sleep.returnAverageSleepQuality(user.id));
 $('#user-average-hours-slept').text(sleep.returnAverageSleep(user.id));
 $('#user-current-step-count').text(activity.returnNumberOfStepsByDate(user.id, currentDate));
-$('#user-rested').text(displaySleepStatus());
+$('#user-rested').text(displayStatus(sleep.isRested, '#sleep-status', '#sleep-comment', '../images/ghost-happy.svg', '../images/ghost-sad.svg', 'You\'ve been getting enough sleep!', 'Getting 8 hours of sleep will make you more productive!'));
 $('#user-current-mins-active').text(activity.returnActiveMinutesByDate(user.id, currentDate));
 $('#user-current-miles-walked').text(activity.returnMilesWalkedByDate(user, currentDate));
 $('#user-current-step-count-vs-average').text(activity.returnNumberOfStepsByDate(user.id, currentDate));
@@ -63,7 +63,7 @@ $('#user-step-count-by-week').text(activity.returnNumberOfStepsByWeek(user.id, c
 $('#user-stairs-climbed-by-week').text(activity.returnStairsClimbedByWeek(user.id, currentDate))
 $('#user-mins-active-by-week').text(activity.returnActiveMinutesByWeek(user.id, currentDate))
 $('#winner-name').text(returnFriendChallengeWinner(friendNames))
-$('#user-water-trend-week').text(displayWaterStatus());
+$('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
 
 function generateRandomUserId() {
@@ -71,27 +71,20 @@ function generateRandomUserId() {
   return Math.ceil(randomNumOneToFifty);
 }
 
-function displaySleepStatus() {
-  sleep.checkUserRestedByDate(user.id, currentDate)
-  if (sleep.isRested === true) {
-    displayStatus('#sleep-status', '../images/ghost-happy.svg', '#sleep-comment', 'You\'ve been getting enough sleep!')
-  } else {
-    displayStatus('#sleep-status', '../images/ghost-sad.svg', '#sleep-comment', 'Getting 8 hours of sleep will make you more productive!')
-  }
-}
+displayStatus(sleep.isRested, '#sleep-status', '#sleep-comment', '../images/ghost-happy.svg', '../images/ghost-sad.svg', 'You\'ve been getting enough sleep!', 'Getting 8 hours of sleep will make you more productive!')
 
-function displayWaterStatus() {
-  let checkWater = hydration.returnDidUserDrinkEnoughWater(user.id, currentDate)
-  if (checkWater === true) {
-    displayStatus('#water-status', '../images/glass-full.svg', '#water-comment', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week')
-  } else {
-    displayStatus('#water-status', '../images/glass-empty.svg', '#water-comment', 'You need more water. Make sure you\'re staying hydrated!')
-  }
-}
 
-function displayStatus(status, image, commentLocation, commentPhrase) {
-    $(status).attr('src', image);
-    $(commentLocation).text(commentPhrase);
+function displayStatus(condition, status, commentLocation, trueImage, falseImage, trueComment, falseComment) {
+  if (status === '#sleep-status') {
+    sleep.checkUserRestedByDate(user.id, currentDate)
+  }
+  if (condition === true) {
+    $(status).attr('src', trueImage);
+    $(commentLocation).text(trueComment);
+  } else {
+    $(status).attr('src', falseImage);
+    $(commentLocation).text(falseComment);
+  }
 }
 
 function populateFriends(userFriends) {
@@ -102,22 +95,18 @@ function populateFriends(userFriends) {
       name: userFriend.returnUserFirstName(),
       steps: (activity.returnNumberOfStepsByWeek(userFriend.id, currentDate)).reduce((acc, day) => acc += day)})
   });
-  friends.push(populateUserDataForFriendChallenge());
-  return friends.sort((userA, userB) => userB.steps - userA.steps);
-}
-
-function populateUserDataForFriendChallenge() {
-  return {
+  friends.push({
     id: user.id,
     name: newUser.returnUserFirstName(),
-    steps: activity.returnNumberOfStepsByWeek(user.id,currentDate)
+    steps: activity.returnNumberOfStepsByWeek(user.id, currentDate)
       .reduce((acc, day) => acc += day)
-  }
+  });
+  return friends.sort((userA, userB) => userB.steps - userA.steps);
 }
 
 function returnFriendInfo(information) {
   let friendObjs = populateFriends(user.friends);
-  eturn friendObjs.map(friend => information);
+  return friendObjs.map(friend => friend[information]);
 }
 
 function returnFriendChallengeWinner(friendNames) {
