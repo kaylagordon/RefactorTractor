@@ -23,8 +23,6 @@ import './images/ghost-sad.svg'
 import './images/glass-empty.svg'
 import './images/glass-full.svg'
 
-
-
 const userIdNum = generateRandomUserId();
 const currentDate = '2019/06/30';
 const userRepo = new UserRepository(userData);
@@ -76,30 +74,31 @@ function generateRandomUserId() {
 function displaySleepStatus() {
   sleep.checkUserRestedByDate(user.id, currentDate)
   if (sleep.isRested === true) {
-    $('#sleep-status').attr('src', '../images/ghost-happy.svg');
-    $('#sleep-comment').text('You\'ve been getting enough sleep!');
+    displayStatus('#sleep-status', '../images/ghost-happy.svg', '#sleep-comment', 'You\'ve been getting enough sleep!')
   } else {
-    $('#sleep-status').attr('src', '../images/ghost-sad.svg');
-    $('#sleep-comment').text('Getting 8 hours of sleep will make you more productive!');
+    displayStatus('#sleep-status', '../images/ghost-sad.svg', '#sleep-comment', 'Getting 8 hours of sleep will make you more productive!')
   }
 }
 
 function displayWaterStatus() {
   let checkWater = hydration.returnDidUserDrinkEnoughWater(user.id, currentDate)
   if (checkWater === true) {
-    $('#water-status').attr('src', '../images/glass-full.svg');
-    $('#water-comment').text('Keep up the good work! You\'ve averaged more than 64 ounces per day this week');
+    displayStatus('#water-status', '../images/glass-full.svg', '#water-comment', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week')
   } else {
-    $('#water-status').attr('src', '../images/glass-empty.svg');
-    $('#water-comment').text('You need more water. Make sure you\'re staying hydrated!');
+    displayStatus('#water-status', '../images/glass-empty.svg', '#water-comment', 'You need more water. Make sure you\'re staying hydrated!')
   }
+}
+
+function displayStatus(status, image, commentLocation, commentPhrase) {
+    $(status).attr('src', image);
+    $(commentLocation).text(commentPhrase);
 }
 
 function populateFriends(userFriends) {
   let friends = userFriends.map(friend => {
     let userFriend = new User(userRepo.returnUserData(friend))
     return ({
-      id: userFriend.id, 
+      id: userFriend.id,
       name: userFriend.returnUserFirstName(),
       steps: (activity.returnNumberOfStepsByWeek(userFriend.id, currentDate)).reduce((acc, day) => acc += day)})
   });
@@ -215,7 +214,7 @@ var sleepQualityHrsByWeek = new Chart(ctx, {
       data: sleep.returnSleepQualityByWeek(user.id, currentDate),
       backgroundColor: [
         'rgb(221, 160, 221, 0.2)',
-       
+
       ],
       borderColor: [
         'rgba(54, 162, 235, 1)',
