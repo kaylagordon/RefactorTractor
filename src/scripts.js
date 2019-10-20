@@ -31,8 +31,8 @@ const newUser = new User(user);
 const hydration = new Hydration(hydrationData);
 const sleep = new Sleep(sleepData);
 const activity = new Activity(activityData)
-const friendNames = returnFriendListNames();
-const friendSteps = returnFriendListSteps();
+const friendNames = returnFriendInfo(friend.name);
+const friendSteps = returnFriendInfo(friend.steps);
 const stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
 
 $('#user-name').text(newUser.returnUserFirstName());
@@ -115,14 +115,9 @@ function populateUserDataForFriendChallenge() {
   }
 }
 
-function returnFriendListNames() {
+function returnFriendInfo(information) {
   let friendObjs = populateFriends(user.friends);
-  return friendObjs.map(friend => friend.name);
-}
-
-function returnFriendListSteps() {
-  let friendObjs = populateFriends(user.friends);
-  return friendObjs.map(friend => friend.steps);
+  eturn friendObjs.map(friend => information);
 }
 
 function returnFriendChallengeWinner(friendNames) {
