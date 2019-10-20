@@ -58,9 +58,9 @@ $('#user-current-stairs-climbed').text(activity.returnActivityByDate(user.id, cu
 $('#all-users-average-stairs-climbed').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'flightsOfStairs'));
 $('#user-current-active-mins').text(activity.returnActivityByDate(user.id, currentDate, 'minutesActive'));
 $('#all-users-average-active-mins').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'minutesActive'));
-$('#user-step-count-by-week').text(activity.returnNumberOfStepsByWeek(user.id, currentDate))
-$('#user-stairs-climbed-by-week').text(activity.returnStairsClimbedByWeek(user.id, currentDate))
-$('#user-mins-active-by-week').text(activity.returnActiveMinutesByWeek(user.id, currentDate))
+$('#user-step-count-by-week').text(activity.returnActivityByWeek(user.id, currentDate, 'numSteps'))
+$('#user-stairs-climbed-by-week').text(activity.returnActivityByWeek(user.id, currentDate, 'flightsOfStairs'))
+$('#user-mins-active-by-week').text(activity.returnActivityByWeek(user.id, currentDate, 'minutesActive'))
 $('#winner-name').text(returnFriendChallengeWinner(friendNames))
 $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))

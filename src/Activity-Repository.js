@@ -13,7 +13,6 @@ class Activity {
     return parseInt(allUsersTotal / allUsers.length);
   }
 
-
   returnActivityByDate(userId, date, activity) {
     return this.findCurrentUserData(userId).find(user => {
       return user.date === date;
@@ -34,19 +33,9 @@ class Activity {
     }, 0) / 7);
   }
 
-  returnActiveMinutesByWeek(userId, date) {
+  returnActivityByWeek(userId, date, activity) {
     let index = this.findCurrentUserData(userId).findIndex((activityObj) => activityObj.date === date);
-    return this.findCurrentUserData(userId).map(activityObj => activityObj.minutesActive).splice(index - 6, 7);
-  }
-
-  returnNumberOfStepsByWeek(userId, date) {
-    let index = this.findCurrentUserData(userId).findIndex((activityObj) => activityObj.date === date);
-    return this.findCurrentUserData(userId).map(activityObj => activityObj.numSteps).splice(index - 6, 7);
-  }
-
-  returnStairsClimbedByWeek(userId, date) {
-    let index = this.findCurrentUserData(userId).findIndex((activityObj) => activityObj.date === date);
-    return this.findCurrentUserData(userId).map(activityObj => activityObj.flightsOfStairs).splice(index - 6, 7);
+    return this.findCurrentUserData(userId).map(activityObj => activityObj[activity]).splice(index - 6, 7);
   }
 
   checkStepGoalMetByDate(user, date) {
