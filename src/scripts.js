@@ -71,9 +71,6 @@ function generateRandomUserId() {
   return Math.ceil(randomNumOneToFifty);
 }
 
-displayStatus(sleep.isRested, '#sleep-status', '#sleep-comment', '../images/ghost-happy.svg', '../images/ghost-sad.svg', 'You\'ve been getting enough sleep!', 'Getting 8 hours of sleep will make you more productive!')
-
-
 function displayStatus(condition, status, commentLocation, trueImage, falseImage, trueComment, falseComment) {
   if (status === '#sleep-status') {
     sleep.checkUserRestedByDate(user.id, currentDate)
@@ -89,11 +86,11 @@ function displayStatus(condition, status, commentLocation, trueImage, falseImage
 
 function populateFriends(userFriends) {
   let friends = userFriends.map(friend => {
-    let userFriend = new User(userRepo.returnUserData(friend))
-    return ({
-      id: userFriend.id,
-      name: userFriend.returnUserFirstName(),
-      steps: (activity.returnNumberOfStepsByWeek(userFriend.id, currentDate)).reduce((acc, day) => acc += day)})
+  let userFriend = new User(userRepo.returnUserData(friend))
+  return ({
+    id: userFriend.id,
+    name: userFriend.returnUserFirstName(),
+    steps: (activity.returnNumberOfStepsByWeek(userFriend.id, currentDate)).reduce((acc, day) => acc += day)})
   });
   friends.push({
     id: user.id,
