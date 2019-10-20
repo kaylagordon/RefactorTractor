@@ -48,15 +48,15 @@ $('#user-sleep-by-week').text(sleep.returnSleepByWeek(user.id, currentDate));
 $('#user-sleep-quality-by-week').text(sleep.returnSleepQualityByWeek(user.id, currentDate));
 $('#user-average-sleep-quality').text(sleep.returnAverageSleepQuality(user.id));
 $('#user-average-hours-slept').text(sleep.returnAverageSleep(user.id));
-$('#user-current-step-count').text(activity.returnNumberOfStepsByDate(user.id, currentDate));
+$('#user-current-step-count').text(activity.returnActivityByDate(user.id, currentDate, 'numSteps'));
 $('#user-rested').text(displayStatus(sleep.isRested, '#sleep-status', '#sleep-comment', '../images/ghost-happy.svg', '../images/ghost-sad.svg', 'You\'ve been getting enough sleep!', 'Getting 8 hours of sleep will make you more productive!'));
-$('#user-current-mins-active').text(activity.returnActiveMinutesByDate(user.id, currentDate));
+$('#user-current-mins-active').text(activity.returnActivityByDate(user.id, currentDate, 'minutesActive'));
 $('#user-current-miles-walked').text(activity.returnMilesWalkedByDate(user, currentDate));
-$('#user-current-step-count-vs-average').text(activity.returnNumberOfStepsByDate(user.id, currentDate));
+$('#user-current-step-count-vs-average').text(activity.returnActivityByDate(user.id, currentDate, 'numSteps'));
 $('#all-users-average-step-count').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'numSteps'));
-$('#user-current-stairs-climbed').text(activity.returnStairsClimbedByDate(user.id, currentDate));
+$('#user-current-stairs-climbed').text(activity.returnActivityByDate(user.id, currentDate, 'flightsOfStairs'));
 $('#all-users-average-stairs-climbed').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'flightsOfStairs'));
-$('#user-current-active-mins').text(activity.returnActiveMinutesByDate(user.id, currentDate));
+$('#user-current-active-mins').text(activity.returnActivityByDate(user.id, currentDate, 'minutesActive'));
 $('#all-users-average-active-mins').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'minutesActive'));
 $('#user-step-count-by-week').text(activity.returnNumberOfStepsByWeek(user.id, currentDate))
 $('#user-stairs-climbed-by-week').text(activity.returnStairsClimbedByWeek(user.id, currentDate))

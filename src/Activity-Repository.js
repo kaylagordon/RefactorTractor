@@ -13,26 +13,16 @@ class Activity {
     return parseInt(allUsersTotal / allUsers.length);
   }
 
+
+  returnActivityByDate(userId, date, activity) {
+    return this.findCurrentUserData(userId).find(user => {
+      return user.date === date;
+    })[activity];
+  }
+
   returnMilesWalkedByDate(user, date) {
     let numOfSteps = this.activityData.find(activityObj => activityObj.userID === user.id && activityObj.date === date).numSteps;
     return parseInt(((numOfSteps * user.strideLength) / 5280).toFixed(0));
-  }
-
-  returnActiveMinutesByDate(userId, date) {
-    return this.findCurrentUserData(userId).find(elem => {
-      return elem.date === date
-    }).minutesActive
-  }
-  returnNumberOfStepsByDate(userID, date) {
-    return this.findCurrentUserData(userID).find((element) => {
-      return element.date === date;
-    }).numSteps;
-  }
-
-  returnStairsClimbedByDate(userID, date) {
-    return this.findCurrentUserData(userID).find((element) => {
-      return element.date === date;
-    }).flightsOfStairs;
   }
 
   returnAvgActiveMinutesByWeek(userId, date) {
