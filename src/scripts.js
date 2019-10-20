@@ -1,5 +1,15 @@
 import $ from 'jquery';
 
+import './css/styles.scss';
+
+import './images/building.svg'
+import './images/coffin.svg'
+import './images/ghost (1).svg'
+import './images/ghost-happy.svg'
+import './images/ghost-sad.svg'
+import './images/glass-empty.svg'
+import './images/glass-full.svg'
+
 import User from './User';
 import UserRepository from './User-repository';
 import Activity from './Activity-Repository';
@@ -11,17 +21,6 @@ import sleepData from '../data/sleep';
 import hydrationData from '../data/hydration';
 import activityData from '../data/activity';
 
-// An example of how you tell webpack to use a CSS (SCSS) file
-import './css/styles.scss';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/building.svg'
-import './images/coffin.svg'
-import './images/ghost (1).svg'
-import './images/ghost-happy.svg'
-import './images/ghost-sad.svg'
-import './images/glass-empty.svg'
-import './images/glass-full.svg'
 
 const userIdNum = generateRandomUserId();
 const currentDate = '2019/06/30';
@@ -54,11 +53,11 @@ $('#user-rested').text(displayStatus(sleep.isRested, '#sleep-status', '#sleep-co
 $('#user-current-mins-active').text(activity.returnActiveMinutesByDate(user.id, currentDate));
 $('#user-current-miles-walked').text(activity.returnMilesWalkedByDate(user, currentDate));
 $('#user-current-step-count-vs-average').text(activity.returnNumberOfStepsByDate(user.id, currentDate));
-$('#all-users-average-step-count').text(activity.returnAvgStepsTakenAllUsersByDate(currentDate));
+$('#all-users-average-step-count').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'numSteps'));
 $('#user-current-stairs-climbed').text(activity.returnStairsClimbedByDate(user.id, currentDate));
-$('#all-users-average-stairs-climbed').text(activity.returnAvgStairsClimbedAllUsersByDate(currentDate));
+$('#all-users-average-stairs-climbed').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'flightsOfStairs'));
 $('#user-current-active-mins').text(activity.returnActiveMinutesByDate(user.id, currentDate));
-$('#all-users-average-active-mins').text(activity.returnAvgActiveMinutesAllUsersByDate(currentDate));
+$('#all-users-average-active-mins').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'minutesActive'));
 $('#user-step-count-by-week').text(activity.returnNumberOfStepsByWeek(user.id, currentDate))
 $('#user-stairs-climbed-by-week').text(activity.returnStairsClimbedByWeek(user.id, currentDate))
 $('#user-mins-active-by-week').text(activity.returnActiveMinutesByWeek(user.id, currentDate))
