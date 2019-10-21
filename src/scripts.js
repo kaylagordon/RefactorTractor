@@ -69,8 +69,8 @@ newUser = new User(user);
 hydration = new Hydration(data.hydrationData);
 sleep = new Sleep(data.sleepData);
 activity = new Activity(data.activityData);
-friendNames = returnFriendListNames();
-friendSteps = returnFriendListSteps();
+friendNames = returnFriendInfo('name');
+friendSteps = returnFriendInfo('steps');
 stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
 
 $('#user-name').text(newUser.returnUserFirstName());
