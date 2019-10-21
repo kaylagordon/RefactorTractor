@@ -19,18 +19,11 @@ class Sleep {
     return parseFloat((totalSleep / userSleepData.length).toFixed(1))
   }
 
-  returnAmountSlept(userID, date) {
+  returnSleepInfo(userID, date, information) {
     let userSleepData = this.findCurrentUserData(userID);
     return userSleepData.find((element) => {
       return element.date === date
-    }).hoursSlept
-  }
-
-  returnSleepQuality(userID, date) {
-    let userSleepData = this.findCurrentUserData(userID);
-    return userSleepData.find((element) => {
-      return element.date === date
-    }).sleepQuality
+    })[information]
   }
 
   returnSleepByWeek(userID, date) {
