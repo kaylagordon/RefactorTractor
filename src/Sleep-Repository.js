@@ -10,19 +10,10 @@ class Sleep {
     });
   }
 
-  returnAverageSleep(userID) {
+  returnAverageSleepInfo(userID, information) {
     let userSleepData = this.findCurrentUserData(userID);
     let totalSleep = userSleepData.reduce((acc, element) => {
-      acc += element.hoursSlept;
-      return acc;
-    }, 0);
-    return parseFloat((totalSleep / userSleepData.length).toFixed(1))
-  }
-
-  returnAverageSleepQuality(userID) {
-    let userSleepData = this.findCurrentUserData(userID);
-    let totalSleep = userSleepData.reduce((acc, element) => {
-      acc += element.sleepQuality;
+      acc += element[information];
       return acc;
     }, 0);
     return parseFloat((totalSleep / userSleepData.length).toFixed(1))
@@ -47,7 +38,7 @@ class Sleep {
     let startDay = userSleepData.findIndex((element) => {
       return element.date === date;
     });
-    return userSleepData.map(sleepObj => { 
+    return userSleepData.map(sleepObj => {
       return sleepObj.hoursSlept
     }).splice(startDay - 6, 7);
   }
@@ -82,7 +73,7 @@ class Sleep {
       if ((this.returnSleepQualityByWeek(id, date).reduce((acc, elem) => {
         acc += elem;
         return acc;
-      }, 0) / 7) >= 3) { 
+      }, 0) / 7) >= 3) {
         usersWithHighestQualitySleep.push(id)
       }
     })
