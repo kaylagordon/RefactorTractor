@@ -10,55 +10,29 @@ class Sleep {
     });
   }
 
-  returnAverageSleep(userID) {
+  returnAverageSleepInfo(userID, information) {
     let userSleepData = this.findCurrentUserData(userID);
     let totalSleep = userSleepData.reduce((acc, element) => {
-      acc += element.hoursSlept;
+      acc += element[information];
       return acc;
     }, 0);
     return parseFloat((totalSleep / userSleepData.length).toFixed(1))
   }
 
-  returnAverageSleepQuality(userID) {
-    let userSleepData = this.findCurrentUserData(userID);
-    let totalSleep = userSleepData.reduce((acc, element) => {
-      acc += element.sleepQuality;
-      return acc;
-    }, 0);
-    return parseFloat((totalSleep / userSleepData.length).toFixed(1))
-  }
-
-  returnAmountSlept(userID, date) {
+  returnSleepInfo(userID, date, information) {
     let userSleepData = this.findCurrentUserData(userID);
     return userSleepData.find((element) => {
       return element.date === date
-    }).hoursSlept
+    })[information]
   }
 
-  returnSleepQuality(userID, date) {
-    let userSleepData = this.findCurrentUserData(userID);
-    return userSleepData.find((element) => {
-      return element.date === date
-    }).sleepQuality
-  }
-
-  returnSleepByWeek(userID, date) {
-    let userSleepData = this.findCurrentUserData(userID);
-    let startDay = userSleepData.findIndex((element) => {
-      return element.date === date;
-    });
-    return userSleepData.map(sleepObj => { 
-      return sleepObj.hoursSlept
-    }).splice(startDay - 6, 7);
-  }
-
-  returnSleepQualityByWeek(userID, date) {
+  returnSleepInfoByWeek(userID, date, information) {
     let userSleepData = this.findCurrentUserData(userID);
     let startDay = userSleepData.findIndex((element) => {
       return element.date === date;
     });
     return userSleepData.map(sleepObj => {
-      return sleepObj.sleepQuality
+      return sleepObj[information]
     }).splice(startDay - 6, 7);
   }
 
@@ -79,10 +53,10 @@ class Sleep {
       return acc
     }, []);
     userIDList.forEach(id => {
-      if ((this.returnSleepQualityByWeek(id, date).reduce((acc, elem) => {
+      if ((this.returnSleepInfoByWeek(id, date, 'sleepQuality').reduce((acc, elem) => {
         acc += elem;
         return acc;
-      }, 0) / 7) >= 3) { 
+      }, 0) / 7) >= 3) {
         usersWithHighestQualitySleep.push(id)
       }
     })

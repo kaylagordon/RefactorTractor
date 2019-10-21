@@ -7,7 +7,7 @@ import activityTestData from '../test-data/activity-test-data';
 import userTestData from '../test-data/user-test-data.js';
 
 describe('Activity', () => {
-  let activity, user1, user3;
+  let activity, user1, user2, user3, userID1;
   beforeEach(() => {
     activity = new Activity(activityTestData);
     user1 = new User(userTestData[0]);
@@ -21,11 +21,11 @@ describe('Activity', () => {
   });
 
   it('should calculate average stairs climbed for all users on a given day', function () {
-    expect(activity.returnAvgStairsClimbedAllUsersByDate('2019/06/15')).to.equal(19);
+    expect(activity.returnAvgActivityAllUsersByDate('2019/06/15', 'flightsOfStairs')).to.equal(19);
   });
 
   it('should return how many minutes active a specified user was on a specific date', () => {
-    expect(activity.returnActiveMinutesByDate(2, '2019/06/16')).to.equal(220);
+    expect(activity.returnActivityByDate(2, '2019/06/16', 'minutesActive')).to.equal(220);
   })
 
   it('should return a boolean based on whether a user achieved their step goal an a specific day', () => {
@@ -35,13 +35,13 @@ describe('Activity', () => {
   it('should return for a specific user their all time stair climbing record', () => {
     expect(activity.returnStairClimbingRecord(2)).to.equal(44)
   })
-  
+
   it('should calculate average steps taken for all users on a given day', function () {
-    expect(activity.returnAvgStepsTakenAllUsersByDate('2019/06/16')).to.equal(7684);
+    expect(activity.returnAvgActivityAllUsersByDate('2019/06/16', 'numSteps')).to.equal(7684);
   });
 
   it('should calculate average minutes active for all users on a given day', function () {
-    expect(activity.returnAvgActiveMinutesAllUsersByDate('2019/06/16')).to.equal(182);
+    expect(activity.returnAvgActivityAllUsersByDate('2019/06/16', 'minutesActive')).to.equal(182);
   });
 
   it('should find all of the days the user met their step goal', function () {
@@ -57,16 +57,16 @@ describe('Activity', () => {
     expect(activity.returnAvgActiveMinutesByWeek(1, '2019/06/15')).to.equal(151);
   });
 
-  it('should calculate a user\'s active minutes per week', function () { 
-    expect(activity.returnActiveMinutesByWeek(1, '2019/06/21')).to.deep.eql([140, 175, 168, 165, 275, 140, 135]);
+  it('should calculate a user\'s active minutes per week', function () {
+    expect(activity.returnActivityByWeek(1, '2019/06/21', 'minutesActive')).to.deep.eql([140, 175, 168, 165, 275, 140, 135]);
   });
 
   it('should calculate a user\'s number of steps per week', function () {
-    expect(activity.returnNumberOfStepsByWeek(1, '2019/06/21')).to.deep.eql([3577, 6637, 14329, 4419, 8429, 14478, 6760]);
+    expect(activity.returnActivityByWeek(1, '2019/06/21', 'numSteps')).to.deep.eql([3577, 6637, 14329, 4419, 8429, 14478, 6760]);
   });
 
   it('should calculate a user\'s stairs climbed per week', function () {
-    expect(activity.returnStairsClimbedByWeek(1, '2019/06/21')).to.deep.eql([16, 36, 18, 33, 2, 12, 6]);
+    expect(activity.returnActivityByWeek(1, '2019/06/21', 'flightsOfStairs')).to.deep.eql([16, 36, 18, 33, 2, 12, 6]);
   });
 
   it('should determine a user\'s activity status for a given day', function () {
@@ -74,11 +74,11 @@ describe('Activity', () => {
   });
 
   it('should calculate a user\'s number of steps for a given day', function () {
-    expect(activity.returnNumberOfStepsByDate(1, '2019/06/15')).to.equal(3577);
+    expect(activity.returnActivityByDate(1, '2019/06/15', 'numSteps')).to.equal(3577);
   });
 
   it('should calculate a user\'s flights of stairs for a given day', function () {
-    expect(activity.returnStairsClimbedByDate(1, '2019/06/15')).to.equal(16);
+    expect(activity.returnActivityByDate(1, '2019/06/15', 'flightsOfStairs')).to.equal(16);
   });
 
   it('should be able to find streaks of three days where steps increased for each day', () => {
