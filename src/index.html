@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" type="text/html" href="styles.css">
     <link
@@ -9,13 +9,13 @@
     <title>Activity Tracker</title>
   </head>
   <body>
-    <header>
+    <header class="header" role="banner">
       <h1> Activity Tracker</h1>
-      <p>Welcome, <span id="user-name"></span>!</p>
-      <p>Today's Date: <span id="current-date"></span></p>
+      <p class="header-welcome">Welcome, <span id="user-name"></span>!</p>
+      <p class="header-date">Today's Date: <span id="current-date"></span></p>
     </header>
-    <main>
-      <container id="user-admin-info">
+    <main role="main">
+      <container id="user-admin-info" role="document">
         <h3>User Info</h3>
         <p class="user-info">Name: <span id="user-info-name"></span></p>
         <p class="user-info">Email: <span id="user-info-email"></span></p>
@@ -37,12 +37,12 @@
         <p class="number" id="user-sleep-quality-by-day"></p>
         <h4>sleep quality</h4>
       </container>
-      <container class="container-center" id="user-rested">
+      <container class="container-center" class="user-rested">
         <h3 >How Rested Are You Today?</h3>
-        <img id="sleep-status"></img>
+        <img id="sleep-status" alt="A ghost that represents how tired you are"></img>
         <p id="sleep-comment">Getting 8 hours of sleep will make you more productive!</p>
       </container>
-      <container class="container-center" id="user-rested">
+      <container class="container-center" class="user-rested">
         <h3>Step Trend</h3>
         <canvas id="step-trend"></canvas>
       </container>
@@ -52,7 +52,7 @@
       </container>
       <container class="container-center" id="user-water-trend-week">
         <h3>Have You Had Enough Water Today?</h3>
-        <img id="water-status"></img>
+        <img id="water-status" alt="A glass of water to determine your water intake"></img>
         <p id="water-comment">Keep up the good work! You've averaged more than 64 ounces per day this week</p>
       </container>
       <container class="container-center">
@@ -98,7 +98,7 @@
       </container>
       <container id="building-challenge">
         <h3>Republic Plaza Challenge</h3>
-        <img src='../images/building.svg'>
+        <img src='../images/building.svg' alt="A small image of a building">
         <p>In the last year you have climbed the Republic Plaza Building in Denver, CO <span id="republic-plaza-challenge"></span> times!</p>
       </container>
       <container>
