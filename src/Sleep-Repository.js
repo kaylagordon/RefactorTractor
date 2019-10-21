@@ -26,23 +26,13 @@ class Sleep {
     })[information]
   }
 
-  returnSleepByWeek(userID, date) {
+  returnSleepInfoByWeek(userID, date, information) {
     let userSleepData = this.findCurrentUserData(userID);
     let startDay = userSleepData.findIndex((element) => {
       return element.date === date;
     });
     return userSleepData.map(sleepObj => {
-      return sleepObj.hoursSlept
-    }).splice(startDay - 6, 7);
-  }
-
-  returnSleepQualityByWeek(userID, date) {
-    let userSleepData = this.findCurrentUserData(userID);
-    let startDay = userSleepData.findIndex((element) => {
-      return element.date === date;
-    });
-    return userSleepData.map(sleepObj => {
-      return sleepObj.sleepQuality
+      return sleepObj[information]
     }).splice(startDay - 6, 7);
   }
 

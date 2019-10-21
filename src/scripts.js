@@ -44,8 +44,8 @@ $('#average-step-goal-all-users').text(userRepo.returnAllUsersAverageStepGoal())
 $('#user-water-by-day').text(hydration.returnFluidOzByDate(user.id, currentDate));
 $('#user-sleep-by-day').text(sleep.returnSleepInfo(user.id, currentDate, 'hoursSlept'));
 $('#user-sleep-quality-by-day').text(sleep.returnSleepInfo(user.id, currentDate, 'sleepQuality'));
-$('#user-sleep-by-week').text(sleep.returnSleepByWeek(user.id, currentDate));
-$('#user-sleep-quality-by-week').text(sleep.returnSleepQualityByWeek(user.id, currentDate));
+$('#user-sleep-by-week').text(sleep.returnSleepInfoByWeek(user.id, currentDate, 'hoursSlept'));
+$('#user-sleep-quality-by-week').text(sleep.returnSleepInfoByWeek(user.id, currentDate, 'sleepQuality'));
 $('#user-average-sleep-quality').text(sleep.returnAverageSleepInfo(user.id, 'sleepQuality'));
 $('#user-average-hours-slept').text(sleep.returnAverageSleepInfo(user.id, 'hoursSlept'));
 $('#user-current-step-count').text(activity.returnActivityByDate(user.id, currentDate, 'numSteps'));
@@ -168,7 +168,7 @@ var sleepQualityHrsByWeek = new Chart(ctx, {
     labels: returnDatesOfWeek(user.id, currentDate),
     datasets: [{
       label: 'hours',
-      data: sleep.returnSleepByWeek(user.id, currentDate),
+      data: sleep.returnSleepInfoByWeek(user.id, currentDate, 'hoursSlept'),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -191,7 +191,7 @@ var sleepQualityHrsByWeek = new Chart(ctx, {
     },
     {
       label: 'quality score',
-      data: sleep.returnSleepQualityByWeek(user.id, currentDate),
+      data: sleep.returnSleepInfoByWeek(user.id, currentDate, 'sleepQuality'),
       backgroundColor: [
         'rgb(221, 160, 221, 0.2)',
 
