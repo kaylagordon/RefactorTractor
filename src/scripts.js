@@ -62,6 +62,7 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
   combinedData["activityData"] = values[3].activityData;
   }).then(() => {
     doAllThings(combinedData);
+    allGraphs();
   });
 
 function doAllThings(data) {
@@ -179,7 +180,7 @@ function returnDatesOfWeek(userId, date) {
   let index = userData.findIndex((data) => data.date === date);
   return userData.splice(index - 6, 7).map(day => day.date);
 }
-
+function allGraphs() {
 Chart.defaults.global.defaultFontColor = 'white';
 var ctx = $('#user-water-by-week');
 var hydrationByWeek = new Chart(ctx, {
@@ -473,4 +474,5 @@ var stepTrend = new Chart(ctx, {
       }]
     }
   }
-});
+})
+}
