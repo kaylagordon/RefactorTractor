@@ -1,5 +1,13 @@
 import $ from 'jquery';
 
+import User from './User';
+import UserRepository from './User-repository';
+import Activity from './Activity-Repository';
+import Hydration from './Hydration-Repository';
+import Sleep from './Sleep-Repository';
+
+// An example of how you tell webpack to use a CSS (SCSS) file
+
 import './css/styles.scss';
 
 import './images/building.svg'
@@ -9,30 +17,61 @@ import './images/ghost-happy.svg'
 import './images/ghost-sad.svg'
 import './images/glass-empty.svg'
 import './images/glass-full.svg'
+// import { promises } from 'dns';
+let userIdNum;
+let currentDate;
+let user;
+let userRepo;
+let newUser;
+let hydration;
+let sleep;
+let activity; 
+let friendNames;
+let friendSteps;
+let stepsTrend;
 
-import User from './User';
-import UserRepository from './User-repository';
-import Activity from './Activity-Repository';
-import Hydration from './Hydration-Repository';
-import Sleep from './Sleep-Repository';
+let userData = fetch('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/users/userData').then(function(response) {
+  return response.json()
+});
+let sleepData = fetch('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/sleep/sleepData').then(function(response) {
+  return response.json()
+});
+let hydrationData = fetch('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/hydration/hydrationData').then(function(response) {
+  return response.json()
+});
+let activityData = fetch('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/activity/activityData').then(function(response) {
+  return response.json()
+})
 
-import userData from '../data/users';
-import sleepData from '../data/sleep';
-import hydrationData from '../data/hydration';
-import activityData from '../data/activity';
+let combinedData = {
+  "userData": {},
+  "sleepData":{},
+  "hydrationData":{},
+  "activityData":{}
+};
 
+Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function (values) {
+  combinedData["userData"] = values[0].userData;
+  combinedData["sleepData"] = values[1].sleepData;
+  combinedData["hydrationData"] = values[2].hydrationData;
+  combinedData["activityData"] = values[3].activityData;
+  }).then(() => {
+    doAllThings(combinedData);
+    allGraphs();
+  });
 
-const userIdNum = generateRandomUserId();
-const currentDate = '2019/06/30';
-const userRepo = new UserRepository(userData);
-const user = userRepo.returnUserData(userIdNum);
-const newUser = new User(user);
-const hydration = new Hydration(hydrationData);
-const sleep = new Sleep(sleepData);
-const activity = new Activity(activityData)
-const friendNames = returnFriendInfo('name');
-const friendSteps = returnFriendInfo('steps');
-const stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
+function doAllThings(data) {
+userIdNum = generateRandomUserId();
+currentDate = '2019/06/30';
+userRepo = new UserRepository(data.userData);
+user = userRepo.returnUserData(userIdNum);
+newUser = new User(user);
+hydration = new Hydration(data.hydrationData);
+sleep = new Sleep(data.sleepData);
+activity = new Activity(data.activityData);
+friendNames = returnFriendListNames();
+friendSteps = returnFriendListSteps();
+stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
 
 $('#user-name').text(newUser.returnUserFirstName());
 $('#current-date').text(currentDate);
@@ -64,6 +103,7 @@ $('#user-mins-active-by-week').text(activity.returnActivityByWeek(user.id, curre
 $('#winner-name').text(returnFriendChallengeWinner(friendNames))
 $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
+}
 
 function generateRandomUserId() {
   let randomNumOneToFifty = (Math.random() * 50);
@@ -117,7 +157,7 @@ function returnDatesOfWeek(userId, date) {
   let index = userData.findIndex((data) => data.date === date);
   return userData.splice(index - 6, 7).map(day => day.date);
 }
-
+function allGraphs() {
 Chart.defaults.global.defaultFontColor = 'white';
 var ctx = $('#user-water-by-week');
 var hydrationByWeek = new Chart(ctx, {
@@ -411,4 +451,6 @@ var stepTrend = new Chart(ctx, {
       }]
     }
   }
-});
+})
+}
+
