@@ -53,7 +53,7 @@ class Sleep {
       return acc
     }, []);
     userIDList.forEach(id => {
-      if ((this.returnSleepQualityByWeek(id, date).reduce((acc, elem) => {
+      if ((this.returnSleepInfoByWeek(id, date, 'sleepQuality').reduce((acc, elem) => {
         acc += elem;
         return acc;
       }, 0) / 7) >= 3) {
