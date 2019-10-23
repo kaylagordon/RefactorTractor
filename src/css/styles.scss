@@ -1,17 +1,20 @@
+@import 'variables';
+
 * {
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font;
   margin: 0;
   padding: 0;
 }
+
 body {
-  background-color: #111f28;
+  background-color: $primary-background-color;
 }
 
 header {
   align-items: center;
-  background-color: #484e52;
-  color: #ffffff;
+  background-color: $secondary-background-color;
+  color: $primary-text-color;
   display: flex;
   height: 60px;
   justify-content: space-between;
@@ -20,29 +23,29 @@ header {
 }
 
 header p {
-  color: #ffffff;
+  color: $primary-text-color;
   font-size: 20px;
 }
 
 header span {
-  color: plum
+  color: $accent-color;
 }
 
 main {
   break-inside: avoid;
   column-count: 3;
-  column-width: 15em; 
+  column-width: 15em;
   padding: 10px;
   width: 100%;
 }
 
 container {
-  background-color: #484e52;
+  background-color: $secondary-background-color;
   border-radius: 10px;
-  border: solid 2px #afb9c5;
-  box-shadow: 0 0 5px #666666;
+  border: solid 2px $border-color;
+  box-shadow: 0 0 5px $shadow-color;
   break-inside: avoid;
-  color: #ffffff;
+  color: $primary-text-color;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,7 +55,7 @@ container {
 }
 
 container:hover {
-  box-shadow: 0 0 10px #999999;
+  box-shadow: 0 0 10px $shadow-hover-color;
   transition: 0.4s;
 }
 
@@ -65,7 +68,7 @@ h4 {
 }
 
 h3 {
-  border-bottom: solid 1px #ffffff;
+  border-bottom: solid 1px $primary-text-color;
   display: block;
   font-size: 20px;
   margin-bottom:15px;
@@ -101,12 +104,12 @@ img {
 }
 
 .you-vs-world span {
-  color: plum;
+  color: $accent-color;
 }
 
 .number,
 #user-water-by-day {
-  color: plum;
+  color: $accent-color;
   font-size: 40px;
   font-weight: bold;
   margin: 3px;
@@ -118,20 +121,16 @@ img {
 }
 
 #winner-name {
-  color: plum;
+  color: $accent-color;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
 
 #republic-plaza-challenge {
-  color: plum;
+  color: $accent-color;
   font-size: 20px;
   font-weight: bold;
   padding-left: 2px;
   padding-right: 2px;
 }
-
-
-
-
