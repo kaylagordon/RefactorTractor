@@ -1,26 +1,18 @@
-class Activity {
-  constructor(activityData) {
-    this.activityData = activityData;
-  }
+import ActionRepository from './Action-Repository';
 
-  findCurrentUserData(userId) {
-    return this.activityData.filter((activityObj) => activityObj.userID === userId);
+class Activity extends ActionRepository {
+  constructor(data) {
+    super(data);
   }
 
   returnAvgActivityAllUsersByDate(date, activity)  {
-    let allUsers = this.activityData.filter((activityObj) => activityObj.date === date);
+    let allUsers = this.data.filter((activityObj) => activityObj.date === date);
     let allUsersTotal = allUsers.reduce((activitySum, userActivity) => activitySum + userActivity[activity], 0);
     return parseInt(allUsersTotal / allUsers.length);
   }
 
-  returnActivityByDate(userId, date, activity) {
-    return this.findCurrentUserData(userId).find(user => {
-      return user.date === date;
-    })[activity];
-  }
-
   returnMilesWalkedByDate(user, date) {
-    let numOfSteps = this.activityData.find(activityObj => activityObj.userID === user.id && activityObj.date === date).numSteps;
+    let numOfSteps = this.data.find(activityObj => activityObj.userID === user.id && activityObj.date === date).numSteps;
     return parseInt(((numOfSteps * user.strideLength) / 5280).toFixed(0));
   }
 
@@ -33,11 +25,6 @@ class Activity {
     }, 0) / 7);
   }
 
-  returnActivityByWeek(userId, date, activity) {
-    let index = this.findCurrentUserData(userId).findIndex((activityObj) => activityObj.date === date);
-    return this.findCurrentUserData(userId).map(activityObj => activityObj[activity]).splice(index - 6, 7);
-  }
-
   checkStepGoalMetByDate(user, date) {
     if ((user.dailyStepGoal) <= (this.findCurrentUserData(user.id).find(elem => elem.date === date).numSteps)) {
       return true;
@@ -46,7 +33,7 @@ class Activity {
   }
 
   returnAllDaysStepGoalExceeded(user) {
-    return this.activityData.filter((activityObj) => activityObj.userID === user.id && activityObj.numSteps > user.dailyStepGoal).map(activityObj => activityObj.date);
+    return this.data.filter((activityObj) => activityObj.userID === user.id && activityObj.numSteps > user.dailyStepGoal).map(activityObj => activityObj.date);
   }
 
   returnStairClimbingRecord(userId) {
