@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'mixins';
 
 * {
   box-sizing: border-box;
@@ -20,15 +21,12 @@ header {
   justify-content: space-between;
   margin-bottom:10px;
   padding: 0 10px;
-}
-
-header p {
-  color: $primary-text-color;
-  font-size: 20px;
-}
-
-header span {
-  color: $accent-color;
+  p {
+    @include make-font(20px, normal, $primary-text-color);
+  }
+  span {
+    color: $accent-color;
+  }
 }
 
 main {
@@ -52,40 +50,35 @@ container {
   margin-bottom: 20px;
   padding: 20px;
   width: 100%;
-}
-
-container:hover {
-  box-shadow: 0 0 10px $shadow-hover-color;
-  transition: 0.4s;
+  &:hover {
+    box-shadow: 0 0 10px $shadow-hover-color;
+    transition: 0.4s;
+  }
 }
 
 h1 {
-  font-size: 30px;
+  @include make-font(30px, normal, $primary-text-color);
 }
 
-h4 {
-  font-size: 18px;
-}
-
-h3 {
-  border-bottom: solid 1px $primary-text-color;
+h2 {
+  border-bottom: solid 1px $border-color;
   display: block;
-  font-size: 20px;
+  @include make-font(20px, normal, $primary-text-color);
   margin-bottom:15px;
   padding-bottom: 15px;
   text-align: center;
 }
 
+h3 {
+  @include make-font(18px, bold, $primary-text-color);
+}
+
 p {
-  font-size: 16px;
+  @include make-font(16px, normal, $primary-text-color);
 }
 
 #user-admin-info p {
   font-weight: bold;
-}
-
-span {
-  font-weight: normal;
 }
 
 img {
@@ -96,22 +89,18 @@ img {
 
 .you-vs-world {
   text-align: center;
-}
-
-.you-vs-world h4 {
-  margin-bottom: 4px;
-  margin-top: 4px;
-}
-
-.you-vs-world span {
-  color: $accent-color;
+  h3 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+  span {
+    color: $accent-color;
+  }
 }
 
 .number,
 #user-water-by-day {
-  color: $accent-color;
-  font-size: 40px;
-  font-weight: bold;
+  @include make-font(40px, bold, $accent-color);
   margin: 3px;
   opacity: 0.8;
 }
@@ -121,16 +110,12 @@ img {
 }
 
 #winner-name {
-  color: $accent-color;
-  font-size: 18px;
-  font-weight: bold;
+  @include make-font(18px, bold, $accent-color);
   text-align: center;
 }
 
 #republic-plaza-challenge {
-  color: $accent-color;
-  font-size: 20px;
-  font-weight: bold;
+  @include make-font(20px, bold, $accent-color);
   padding-left: 2px;
   padding-right: 2px;
 }
