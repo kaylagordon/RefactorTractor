@@ -56,13 +56,14 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
   combinedData["hydrationData"] = values[2].hydrationData;
   combinedData["activityData"] = values[3].activityData;
   }).then(() => {
+    console.log(combinedData.hydrationData)
     doAllThings(combinedData);
     allGraphs();
   });
 
 function doAllThings(data) {
 userIdNum = generateRandomUserId();
-currentDate = '2019/06/30';
+currentDate = '2019/10/24';
 userRepo = new UserRepository(data.userData);
 user = userRepo.returnUserData(userIdNum);
 newUser = new User(user);
