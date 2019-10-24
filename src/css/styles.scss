@@ -6,6 +6,7 @@
   font-family: $font;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 body {
@@ -13,12 +14,10 @@ body {
 }
 
 header {
-  align-items: center;
   background-color: $secondary-background-color;
   color: $primary-text-color;
-  display: flex;
+  @include make-flex(row, space-between);
   height: 60px;
-  justify-content: space-between;
   margin-bottom:10px;
   padding: 0 10px;
   p {
@@ -44,9 +43,7 @@ container {
   box-shadow: 0 0 5px $shadow-color;
   break-inside: avoid;
   color: $primary-text-color;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include make-flex(column, center)
   margin-bottom: 20px;
   padding: 20px;
   width: 100%;
@@ -66,7 +63,6 @@ h2 {
   @include make-font(20px, normal, $primary-text-color);
   margin-bottom:15px;
   padding-bottom: 15px;
-  text-align: center;
 }
 
 h3 {
@@ -77,8 +73,10 @@ p {
   @include make-font(16px, normal, $primary-text-color);
 }
 
-#user-admin-info p {
-  font-weight: bold;
+#user-admin-info {
+  p {
+  font-weight: normal;
+  }
 }
 
 img {
@@ -88,7 +86,6 @@ img {
 }
 
 .you-vs-world {
-  text-align: center;
   h3 {
     margin-bottom: 4px;
     margin-top: 4px;
@@ -98,20 +95,14 @@ img {
   }
 }
 
-.number,
-#user-water-by-day {
+.number {
   @include make-font(40px, bold, $accent-color);
   margin: 3px;
   opacity: 0.8;
 }
 
-.container-center {
-  text-align: center;
-}
-
 #winner-name {
   @include make-font(18px, bold, $accent-color);
-  text-align: center;
 }
 
 #republic-plaza-challenge {

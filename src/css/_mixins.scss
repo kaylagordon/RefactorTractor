@@ -3,3 +3,9 @@
   font-weight: $weight;
   color: $color;
 }
+@mixin make-flex($direction, $justify) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: center;
+}
