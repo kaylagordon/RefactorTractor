@@ -1,0 +1,12 @@
+// COLORS
+$primary-background-color: hsla(203, 40%, 11%, 1);
+$secondary-background-color: hsla(204, 6%, 30%, 1);
+$accent-color: hsla(300, 47%, 75%, 1);
+$primary-text-color: 	hsla(0, 0%, 100%, 1);
+$border-color: 	hsla(213, 16%, 73%, 1);
+$shadow-color: hsla(0, 0%, 40%, 1);
+$shadow-hover-color: hsla(0, 0%, 60%, 1);
+
+// FONT
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700&display=swap);
+$font: 'Open Sans', sans-serif;
