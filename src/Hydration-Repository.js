@@ -1,10 +1,8 @@
-class Hydration {
-  constructor(hydrationData) {
-    this.hydrationData = hydrationData;
-  }
+import ActionRepository from './Action-Repository';
 
-  findCurrentUserData(userId) {
-    return this.hydrationData.filter((hydrationObj) => hydrationObj.userID === userId);
+class Hydration extends ActionRepository {
+  constructor(data) {
+    super(data);
   }
 
   returnAvgFluidOzPerDayAllTime(userId) {
@@ -13,17 +11,8 @@ class Hydration {
     }, 0);
   }
 
-  returnFluidOzByDate(userId, date) {
-    return this.findCurrentUserData(userId).find((hydrationObj) => hydrationObj.date === date).numOunces;
-  }
-
-  returnFluidOzByWeek(userId, date) {
-    let index = this.findCurrentUserData(userId).findIndex((hydrationObj) => hydrationObj.date === date);
-    return this.findCurrentUserData(userId).map(hydrationObj => hydrationObj.numOunces).splice(index - 6, 7);
-  }
-
   returnDidUserDrinkEnoughWater(userId, date) {
-    let waterDatas = this.returnFluidOzByWeek(userId, date);
+    let waterDatas = this.returnActionByWeek(userId, date, 'numOunces');
     let avgWaterPerDay = (waterDatas.reduce((acc, day) => {
       acc += day;
       return acc;
