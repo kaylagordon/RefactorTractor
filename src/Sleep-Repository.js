@@ -1,13 +1,9 @@
-class Sleep {
-  constructor(sleepData) {
-    this.sleepData = sleepData;
-    this.isRested = false;
-  }
+import ActionRepository from './Action-Repository';
 
-  findCurrentUserData(userID) {
-    return this.sleepData.filter((currentElement) => {
-      return currentElement.userID === userID;
-    });
+class Sleep extends ActionRepository {
+  constructor(data) {
+    super(data);
+    this.isRested = false;
   }
 
   returnAverageSleepInfo(userID, information) {
@@ -19,41 +15,24 @@ class Sleep {
     return parseFloat((totalSleep / userSleepData.length).toFixed(1))
   }
 
-  returnSleepInfo(userID, date, information) {
-    let userSleepData = this.findCurrentUserData(userID);
-    return userSleepData.find((element) => {
-      return element.date === date
-    })[information]
-  }
-
-  returnSleepInfoByWeek(userID, date, information) {
-    let userSleepData = this.findCurrentUserData(userID);
-    let startDay = userSleepData.findIndex((element) => {
-      return element.date === date;
-    });
-    return userSleepData.map(sleepObj => {
-      return sleepObj[information]
-    }).splice(startDay - 6, 7);
-  }
-
   returnAllUsersAverageSleepQuality() {
-    let totalSleepQuality = this.sleepData.reduce((acc, element) => {
+    let totalSleepQuality = this.data.reduce((acc, element) => {
       acc += element.sleepQuality;
       return acc;
     }, 0);
-    return parseFloat((totalSleepQuality / this.sleepData.length).toFixed(1));
+    return parseFloat((totalSleepQuality / this.data.length).toFixed(1));
   }
 
   returnSleepQualityGreaterThanThree(date) {
     let usersWithHighestQualitySleep = [];
-    let userIDList = this.sleepData.reduce((acc, element) => {
+    let userIDList = this.data.reduce((acc, element) => {
       if (!acc.includes(element.userID)) {
         acc.push(element.userID)
       }
       return acc
     }, []);
     userIDList.forEach(id => {
-      if ((this.returnSleepInfoByWeek(id, date, 'sleepQuality').reduce((acc, elem) => {
+      if ((this.returnActionByWeek(id, date, 'sleepQuality').reduce((acc, elem) => {
         acc += elem;
         return acc;
       }, 0) / 7) >= 3) {
@@ -64,7 +43,7 @@ class Sleep {
   }
 
   returnUserWithMostSleep(date) {
-    let sleepByDay = this.sleepData.filter(elem => {
+    let sleepByDay = this.data.filter(elem => {
       return elem.date === date;
     })
     sleepByDay.sort((firstElem, secondElem) => {
