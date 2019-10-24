@@ -56,14 +56,13 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
   combinedData["hydrationData"] = values[2].hydrationData;
   combinedData["activityData"] = values[3].activityData;
   }).then(() => {
-    console.log(combinedData.hydrationData)
     doAllThings(combinedData);
     allGraphs();
   });
 
 function doAllThings(data) {
 userIdNum = generateRandomUserId();
-currentDate = '2019/10/24';
+currentDate = getDate();
 userRepo = new UserRepository(data.userData);
 user = userRepo.returnUserData(userIdNum);
 newUser = new User(user);
@@ -104,6 +103,15 @@ $('#user-mins-active-by-week').text(activity.returnActionByWeek(user.id, current
 $('#winner-name').text(returnFriendChallengeWinner(friendNames))
 $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
+}
+
+function getDate() {
+  var m = new Date();
+  var dateString =
+    m.getUTCFullYear() + "/" +
+    ("0" + (m.getUTCMonth()+1)).slice(-2) + "/" +
+    ("0" + m.getUTCDate()).slice(-2)
+    return dateString
 }
 
 function generateRandomUserId() {
