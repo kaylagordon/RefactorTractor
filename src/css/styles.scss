@@ -1,88 +1,83 @@
+@import 'variables';
+@import 'mixins';
+
 * {
   box-sizing: border-box;
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
+
 body {
-  background-color: #ffffff;
+  background-color: $primary-background-color;
 }
 
 header {
-  align-items: center;
-  background-color: #484e52;
-  color: #ffffff;
-  display: flex;
+  background-color: $secondary-background-color;
+  color: $primary-text-color;
+  @include make-flex(row, space-between);
   height: 60px;
-  justify-content: space-between;
   margin-bottom:10px;
   padding: 0 10px;
-}
-
-header p {
-  color: #ffffff;
-  font-size: 20px;
-}
-
-header span {
-  color:  rgb(255, 184, 255)
+  
+  p {
+    @include make-font(20px, normal, $primary-text-color);
+  }
+  span {
+    color: $accent-color;
+  }
 }
 
 main {
   break-inside: avoid;
   column-count: 3;
-  column-width: 15em; 
+  column-width: 15em;
   padding: 10px;
   width: 100%;
 }
 
 container {
-  background-color: #484e52;
+  background-color: $secondary-background-color;
   border-radius: 10px;
-  border: solid 2px #afb9c5;
-  box-shadow: 0 0 5px #666666;
+  border: solid 2px $border-color;
+  box-shadow: 0 0 5px $shadow-color;
   break-inside: avoid;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  color: $primary-text-color;
+  @include make-flex(column, center)
   margin-bottom: 20px;
   padding: 20px;
   width: 100%;
-}
-
-container:hover {
-  box-shadow: 0 0 10px #999999;
-  transition: 0.4s;
+  &:hover {
+    box-shadow: 0 0 10px $shadow-hover-color;
+    transition: 0.4s;
+  }
 }
 
 h1 {
-  font-size: 30px;
+  @include make-font(30px, normal, $primary-text-color);
 }
 
-h4 {
-  font-size: 18px;
+h2 {
+  border-bottom: solid 1px $border-color;
+  display: block;
+  @include make-font(20px, normal, $primary-text-color);
+  margin-bottom:15px;
+  padding-bottom: 15px;
 }
 
 h3 {
-  border-bottom: solid 1px #ffffff;
-  display: block;
-  font-size: 20px;
-  margin-bottom:15px;
-  padding-bottom: 15px;
-  text-align: center;
+  @include make-font(18px, bold, $primary-text-color);
 }
 
 p {
-  font-size: 16px;
+  @include make-font(16px, normal, $primary-text-color);
 }
 
-#user-admin-info p {
-  font-weight: bold;
-}
-
-span {
+#user-admin-info {
+  p {
   font-weight: normal;
+  }
 }
 
 img {
@@ -92,46 +87,27 @@ img {
 }
 
 .you-vs-world {
-  text-align: center;
+  h3 {
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+  span {
+    color: $accent-color;
+  }
 }
 
-.you-vs-world h4 {
-  margin-bottom: 4px;
-  margin-top: 4px;
-}
-
-.you-vs-world span {
-  color: rgb(255, 184, 255);
-}
-
-.number,
-#user-water-by-day {
-  color: rgb(255, 184, 255);
-  font-size: 40px;
-  font-weight: bold;
+.number {
+  @include make-font(40px, bold, $accent-color);
   margin: 3px;
   opacity: 0.8;
 }
 
-.container-center {
-  text-align: center;
-}
-
 #winner-name {
-  color: rgb(255, 184, 255)m;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
+  @include make-font(18px, bold, $accent-color);
 }
 
 #republic-plaza-challenge {
-  color:  rgb(255, 184, 255);
-  font-size: 20px;
-  font-weight: bold;
+  @include make-font(20px, bold, $accent-color);
   padding-left: 2px;
   padding-right: 2px;
 }
-
-
-
-
