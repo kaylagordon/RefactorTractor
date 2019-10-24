@@ -20,6 +20,7 @@ header {
   height: 60px;
   margin-bottom:10px;
   padding: 0 10px;
+  
   p {
     @include make-font(20px, normal, $primary-text-color);
   }
