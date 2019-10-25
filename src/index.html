@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <link rel="stylesheet" type="text/html" href="styles.css">
       <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width">
     <title>Activity Tracker</title>
   </head>
   <body>
-    <header>
+    <header class="header" role="banner">
       <h1> Activity Tracker</h1>
-      <p>Welcome, <span id="user-name"></span>!</p>
-      <p>Today's Date: <span id="current-date"></span></p>
+      <p class="header-welcome">Welcome, <span id="user-name"></span>!</p>
+      <p class="header-date">Today's Date: <span id="current-date"></span></p>
     </header>
-    <main>
+    <main role="main">
       <div class='cover hide'></div>
       <form id='user-id-form' action="index.html" method="post" class="hide">
         <h2>Change User</h2>
@@ -47,7 +48,7 @@
         <button type="button" name="button" id="update-hydration-button" alt="This is a button for making a new hyrdration activity">UPDATE HYDRATION</button>
         <button type="button" name="button" id="update-sleep-button" alt="This is a button for making a new sleep activity">UPDATE SLEEP</button>
       </section>
-      <container id="user-admin-info">
+      <container id="user-admin-info" role="document">
         <h2>User Info</h2>
         <p class="user-info">Name: <span id="user-info-name"></span></p>
         <p class="user-info">Email: <span id="user-info-email"></span></p>
@@ -69,22 +70,22 @@
         <p class="number" id="user-sleep-quality-by-day"></p>
         <h3>sleep quality</h3>
       </container>
-      <container id="user-rested">
-        <h2 >How Rested Are You Today?</h2>
-        <img id="sleep-status"></img>
+      <container class="container-center" class="user-rested">
+        <h3 >How Rested Are You Today?</h3>
+        <img id="sleep-status" alt="A ghost that represents how tired you are"></img>
         <p id="sleep-comment">Getting 8 hours of sleep will make you more productive!</p>
       </container>
-      <container id="user-rested">
-        <h2>Step Trend</h2>
+      <container class="container-center" class="user-rested">
+        <h3>Step Trend</h3>
         <canvas id="step-trend"></canvas>
       </container>
       <container id="user-sleep-week">
         <h2>Your Sleep Quality & Hours</h2>
         <canvas id="user-sleep-by-week"></canvas>
       </container>
-      <container id="user-water-trend-week">
-        <h2>Have You Had Enough Water Today?</h2>
-        <img id="water-status"></img>
+      <container class="container-center" id="user-water-trend-week">
+        <h3>Have You Had Enough Water Today?</h3>
+        <img id="water-status" alt="A glass of water to determine your water intake"></img>
         <p id="water-comment">Keep up the good work! You've averaged more than 64 ounces per day this week</p>
       </container>
       <container>
@@ -129,8 +130,8 @@
         <canvas id="user-stairs-climbed-by-week"></canvas>
       </container>
       <container id="building-challenge">
-        <h2>Republic Plaza Challenge</h2>
-        <img src='../images/building.svg'>
+        <h3>Republic Plaza Challenge</h3>
+        <img src='../images/building.svg' alt="A small image of a building">
         <p>In the last year you have climbed the Republic Plaza Building in Denver, CO <span id="republic-plaza-challenge"></span> times!</p>
       </container>
       <container>

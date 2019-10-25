@@ -62,7 +62,7 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
 
 function doAllThings(data) {
 userIdNum = generateRandomUserId();
-currentDate = '2019/06/30';
+currentDate = getDate();
 userRepo = new UserRepository(data.userData);
 user = userRepo.returnUserData(userIdNum);
 newUser = new User(user);
@@ -125,6 +125,15 @@ $('.update-button').click(function() {
   $(event.target).closest('form')[0].reset();
   $('.cover').toggleClass('hide');
 })
+
+function getDate() {
+  var m = new Date();
+  var dateString =
+    m.getUTCFullYear() + "/" +
+    ("0" + (m.getUTCMonth()+1)).slice(-2) + "/" +
+    ("0" + m.getUTCDate()).slice(-2)
+    return dateString
+}
 
 function generateRandomUserId() {
   let randomNumOneToFifty = (Math.random() * 50);
