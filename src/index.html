@@ -12,40 +12,41 @@
       <p>Today's Date: <span id="current-date"></span></p>
     </header>
     <main>
-      <section>
-        <button type="button" name="button" id="change-user-button" alt="This is a button for changing user">CHANGE USER</button>
-        <button type="button" name="button" id="add-steps-button" alt="This is a button for making a new step activity">UPDATE STEPS</button>
-        <button type="button" name="button" id="add-hydration-button" alt="This is a button for making a new hyrdration activity">UPDATE HYDRATION</button>
-        <button type="button" name="button" id="add-sleep-button" alt="This is a button for making a new sleep activity">UPDATE SLEEP</button>
-      </section>
-      <form id='user-id-form' action="index.html" method="post">
+      <div class='cover hide'></div>
+      <form id='user-id-form' action="index.html" method="post" class="hide">
         <h2>Change User</h2>
         <p>USER ID NUMBER:</p>
         <input type="text" name="" value="" alt="Enter your user ID number in this textbox">
-        <button type="button" name="button" id='submit-user-button'>UPDATE</button>
+        <button type="button" name="button" class='update-button' id='submit-user-button'>UPDATE</button>
       </form>
-      <form id='update-steps-form' action="index.html" method="post">
+      <form id='update-steps-form' action="index.html" method="post" class="hide">
         <h2>Update Steps</h2>
         <p>STEPS TAKEN TODAY:</p>
-        <input type="text" name="" value="" alt="Enter your user ID number in this textbox">
+        <input type="text" name="" value="" alt="Enter your steps taken in this textbox">
         <p>FLIGHTS CLIMBED TODAY:</p>
-        <input type="text" name="" value="" alt="Enter your user ID number in this textbox">
-        <button type="button" name="button" id='submit-steps-button'>UPDATE</button>
+        <input type="text" name="" value="" alt="Enter your flights climbed in this textbox">
+        <button type="button" name="button" class='update-button' id='submit-steps-button'>UPDATE</button>
       </form>
-      <form id='update-hydration-form' action="index.html" method="post">
+      <form id='update-hydration-form' action="index.html" method="post" class="hide">
         <h2>Update Hydration</h2>
         <p>OUNCES DRANK TODAY:</p>
-        <input type="text" name="" value="" alt="Enter your user ID number in this textbox">
-        <button type="button" name="button" id='submit-hydration-button'>UPDATE</button>
+        <input type="text" name="" value="" alt="Enter your ounces drank in this textbox">
+        <button type="button" name="button" class='update-button' id='submit-hydration-button'>UPDATE</button>
       </form>
-      <form id='update-sleep-form' action="index.html" method="post">
+      <form id='update-sleep-form' action="index.html" method="post" class="hide">
         <h2>Update Sleep</h2>
         <p>HOURS SLEPT LAST NIGHT:</p>
-        <input type="text" name="" value="" alt="Enter your user ID number in this textbox">
+        <input type="text" name="" value="" alt="Enter your hours slept in this textbox">
         <p>SLEEP QUALITY LAST NIGHT:</p>
-        <input type="text" name="" value="" alt="Enter your user ID number in this textbox">
-        <button type="button" name="button" id='submit-sleep-button'>UPDATE</button>
+        <input type="text" name="" value="" alt="Enter your sleep quality in this textbox">
+        <button type="button" name="button" class='update-button' id='submit-sleep-button'>UPDATE</button>
       </form>
+      <section>
+        <button type="button" name="button" id="change-user-button" alt="This is a button for changing user">CHANGE USER</button>
+        <button type="button" name="button" id="update-steps-button" alt="This is a button for making a new step activity">UPDATE STEPS</button>
+        <button type="button" name="button" id="update-hydration-button" alt="This is a button for making a new hyrdration activity">UPDATE HYDRATION</button>
+        <button type="button" name="button" id="update-sleep-button" alt="This is a button for making a new sleep activity">UPDATE SLEEP</button>
+      </section>
       <container id="user-admin-info">
         <h2>User Info</h2>
         <p class="user-info">Name: <span id="user-info-name"></span></p>
@@ -139,7 +140,7 @@
       </container>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   </body>
 </html>

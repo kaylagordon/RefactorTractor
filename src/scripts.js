@@ -104,6 +104,27 @@ $('#winner-name').text(returnFriendChallengeWinner(friendNames))
 $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
 }
+$('#change-user-button').click(function() {
+  $('#user-id-form').toggleClass('hide');
+  $('.cover').toggleClass('hide');
+})
+$('#update-steps-button').click(function() {
+  $('#update-steps-form').toggleClass('hide');
+  $('.cover').toggleClass('hide');
+})
+$('#update-hydration-button').click(function() {
+  $('#update-hydration-form').toggleClass('hide');
+  $('.cover').toggleClass('hide');
+})
+$('#update-sleep-button').click(function() {
+  $('#update-sleep-form').toggleClass('hide');
+  $('.cover').toggleClass('hide');
+})
+$('.update-button').click(function() {
+  $(event.target).closest('form').toggleClass('hide');
+  $(event.target).closest('form')[0].reset();
+  $('.cover').toggleClass('hide');
+})
 
 function generateRandomUserId() {
   let randomNumOneToFifty = (Math.random() * 50);
