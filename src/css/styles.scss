@@ -13,29 +13,6 @@ body {
   background-color: $primary-background-color;
 }
 
-header {
-  background-color: $secondary-background-color;
-  color: $primary-text-color;
-  @include make-flex(row, space-between);
-  height: 60px;
-  margin-bottom:10px;
-  padding: 0 10px;
-  p {
-    @include make-font(20px, normal, $primary-text-color);
-  }
-  span {
-    color: $accent-color;
-  }
-}
-
-main {
-  break-inside: avoid;
-  column-count: 3;
-  column-width: 15em;
-  padding: 10px;
-  width: 100%;
-}
-
 container {
   background-color: $secondary-background-color;
   border-radius: 10px;
@@ -51,6 +28,72 @@ container {
     box-shadow: 0 0 10px $shadow-hover-color;
     transition: 0.4s;
   }
+}
+
+header {
+  background-color: $secondary-background-color;
+  color: $primary-text-color;
+  @include make-flex(row, space-between);
+  height: 60px;
+  margin-bottom:10px;
+  padding: 0 10px;
+  p {
+    @include make-font(20px, normal, $primary-text-color);
+  }
+  span {
+    color: $accent-color;
+  }
+}
+
+section {
+  button {
+    @extend container;
+    background-color: $secondary-background-color;
+    @include make-font(20px, bold, $accent-color)
+    margin-top: 15px;
+    padding: .5%;
+    outline: none;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+form {
+  @extend container;
+  input {
+    border-radius: 5px;
+    border: none;
+    @include make-font(16px, normal, $primary-background-color)
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 35%
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+button {
+  @extend container;
+  background-color: $accent-color;
+  @include make-font(16px, bold, $primary-background-color)
+  margin-top: 15px;
+  padding: 1%;
+  outline: none;
+  width: 35%;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+main {
+  break-inside: avoid;
+  column-count: 3;
+  column-width: 15em;
+  padding: 10px;
+  width: 100%;
 }
 
 h1 {
