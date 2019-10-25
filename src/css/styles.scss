@@ -37,6 +37,7 @@ header {
   height: 60px;
   margin-bottom:10px;
   padding: 0 10px;
+  
   p {
     @include make-font(20px, normal, $primary-text-color);
   }
@@ -181,3 +182,5 @@ img {
   top: 0;
   left: 0;
 }
+
+@import 'media-queries';
