@@ -128,13 +128,67 @@ $('#submit-user-button').click(function() {
 })
 
 $('#user-id-input').keyup(function() {
-  if (0 < $(this).val() && $(this).val() < 51) {
-    $('#submit-user-button').prop('disabled', false);
-    $('#user-id-error').addClass('hide');
+  enableButton(0 < $(this).val() && $(this).val() < 51, '#submit-user-button');
+  showError(0 < $(this).val() && $(this).val() < 51, '#user-id-error');
+})
+
+$('#hydration-input').keyup(function() {
+  enableButton(0 < $(this).val(), '#submit-hydration-button');
+  showError(0 < $(this).val(), '#hydration-error');
+})
+
+$('#steps-input').keyup(function() {
+  enableButton(0 < $(this).val() && 0 < $('#stairs-input').val(), '#submit-steps-button');
+  showError(0 < $(this).val(), '#steps-error');
+});
+
+$('#stairs-input').keyup(function() {
+  enableButton(0 < $(this).val() && 0 < $('#stairs-input').val(), '#submit-steps-button');
+  showError(0 < $(this).val(), '#stairs-error');
+});
+
+$('#sleep-hours-input').keyup(function() {
+  enableButton(0 < $(this).val() && $(this).val() <= 24 && 0 < $('#sleep-quality-input').val() && $('#sleep-quality-input').val() <= 5, '#submit-sleep-button');
+  showError(0 < $(this).val() && $(this).val() <= 24, '#sleep-hours-error');
+});
+
+$('#sleep-quality-input').keyup(function() {
+  enableButton(0 < $(this).val() && $(this).val() <= 5 && 0 < $('#sleep-hours-input').val() && $('#sleep-hours-input').val() <= 24, '#submit-sleep-button');
+  showError(0 < $(this).val() && $(this).val() <= 5, '#sleep-quality-error');
+});
+
+function enableButton(condition, submitButton) {
+  if (condition) {
+    $(submitButton).prop('disabled', false);
   } else {
-    $('#submit-user-button').prop('disabled', true);
-    $('#user-id-error').removeClass('hide');
+    $(submitButton).prop('disabled', true);
   }
+}
+
+function showError(condition, errorMessage) {
+  if (condition) {
+    $(errorMessage).addClass('hide');
+  } else {
+    $(errorMessage).removeClass('hide');
+  }
+}
+
+$('#submit-steps-button').click(function() {
+  // ADD POSTING HERE
+  closeForm();
+  $('#submit-steps-button').prop('disabled', true);
+})
+
+$('#submit-hydration-button').click(function() {
+  // ADD POSTING HERE
+  closeForm();
+  $('#submit-hydration-button').prop('disabled', true);
+})
+
+$('#submit-sleep-button').click(function() {
+  // ADD POSTING HERE
+  closeForm();
+  $('#submit-sleep-button').prop('disabled', true);
 })
 
 $('.cancel-button').click(function() {
