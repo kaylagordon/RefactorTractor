@@ -105,26 +105,26 @@ $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoug
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
 }
 $('#change-user-button').click(function() {
-  $('#user-id-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#user-id-form'))
 })
 $('#update-steps-button').click(function() {
-  $('#update-steps-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#update-steps-form'))
 })
 $('#update-hydration-button').click(function() {
-  $('#update-hydration-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#update-hydration-form'))
 })
 $('#update-sleep-button').click(function() {
-  $('#update-sleep-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#update-sleep-form'))
 })
 $('.update-button').click(function() {
-  $(event.target).closest('form').toggleClass('hide');
+  changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
-  $('.cover').toggleClass('hide');
 })
+
+function changeFormDisplay(element) {
+  element.toggleClass('hide');
+  $('.cover').toggleClass('hide');
+}
 
 function getDate() {
   var m = new Date();
