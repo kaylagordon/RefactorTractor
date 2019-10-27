@@ -56,12 +56,12 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
   combinedData["hydrationData"] = values[2].hydrationData;
   combinedData["activityData"] = values[3].activityData;
   }).then(() => {
-    doAllThings(combinedData);
-    allGraphs();
+    populateData(combinedData);
+    populateGraphs();
   });
 
-function doAllThings(data) {
-userIdNum = generateRandomUserId();
+function populateData(data, userId) {
+userIdNum = userId || generateRandomUserId();
 currentDate = getDate();
 userRepo = new UserRepository(data.userData);
 user = userRepo.returnUserData(userIdNum);
@@ -116,14 +116,21 @@ $('#update-hydration-button').click(function() {
 $('#update-sleep-button').click(function() {
   changeFormDisplay($('#update-sleep-form'))
 })
-$('.update-button').click(function() {
-  changeFormDisplay($(event.target).closest('form'))
-  $(event.target).closest('form')[0].reset();
-})
 $('.cancel-button').click(function() {
   changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
 })
+$('#submit-user-button').click(function() {
+  changeUser();
+  changeFormDisplay($(event.target).closest('form'))
+  $(event.target).closest('form')[0].reset();
+})
+
+function changeUser() {
+  let newUserId = parseInt($('#user-id-input').val());
+  populateData(combinedData, newUserId);
+  populateGraphs();
+}
 
 function changeFormDisplay(element) {
   element.toggleClass('hide');
@@ -191,7 +198,7 @@ function returnDatesOfWeek(userId, date) {
   let index = userData.findIndex((data) => data.date === date);
   return userData.splice(index - 6, 7).map(day => day.date);
 }
-function allGraphs() {
+function populateGraphs() {
 Chart.defaults.global.defaultFontColor = 'white';
 var ctx = $('#user-water-by-week');
 var hydrationByWeek = new Chart(ctx, {
