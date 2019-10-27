@@ -120,6 +120,10 @@ $('.update-button').click(function() {
   changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
 })
+$('.cancel-button').click(function() {
+  changeFormDisplay($(event.target).closest('form'))
+  $(event.target).closest('form')[0].reset();
+})
 
 function changeFormDisplay(element) {
   element.toggleClass('hide');

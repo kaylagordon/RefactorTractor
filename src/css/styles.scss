@@ -37,7 +37,7 @@ header {
   height: 60px;
   margin-bottom:10px;
   padding: 0 10px;
-  
+
   p {
     @include make-font(20px, normal, $primary-text-color);
   }
@@ -86,20 +86,36 @@ form {
   }
 }
 
-button {
+.form-button-container {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+}
+
+.form-button {
   @extend container;
-  border-color:$accent-color;
   background-color: $secondary-background-color;
   @include make-font(16px, bold, $primary-text-color)
   margin-top: 15px;
   margin-bottom: 10px;
-  padding: 1%;
+  margin: 10px;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   outline: none;
-  width: 35%;
+  width: 40%;
   &:hover {
     transform: scale(1.1);
     cursor: pointer;
   }
+}
+
+.update-button {
+  border-color: $accent-color;
+}
+
+.cancel-button {
+  border-color: $border-color;
 }
 
 main {
