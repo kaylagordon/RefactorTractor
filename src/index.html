@@ -18,9 +18,10 @@
         <h2>Change User</h2>
         <p>USER ID NUMBER:</p>
         <input type="text" alt="Enter your user ID number in this textbox" id='user-id-input'>
+        <p class='error-message hide' id='user-id-error'>Please enter a valid ID number.</p>
         <div class='form-button-container'>
           <button type="button" name="button" class='form-button cancel-button'>CANCEL</button>
-          <button type="button" name="button" class='form-button update-button' id='submit-user-button'>UPDATE</button>
+          <button type="button" name="button" class='form-button update-button' id='submit-user-button' disabled>UPDATE</button>
         </div>
       </form>
       <form id='update-steps-form' action="index.html" method="post" class="hide">

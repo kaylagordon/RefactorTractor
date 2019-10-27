@@ -104,27 +104,48 @@ $('#winner-name').text(returnFriendChallengeWinner(friendNames))
 $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
 }
+
 $('#change-user-button').click(function() {
   changeFormDisplay($('#user-id-form'))
 })
+
 $('#update-steps-button').click(function() {
   changeFormDisplay($('#update-steps-form'))
 })
+
 $('#update-hydration-button').click(function() {
   changeFormDisplay($('#update-hydration-form'))
 })
+
 $('#update-sleep-button').click(function() {
   changeFormDisplay($('#update-sleep-form'))
 })
-$('.cancel-button').click(function() {
-  changeFormDisplay($(event.target).closest('form'))
-  $(event.target).closest('form')[0].reset();
-})
+
 $('#submit-user-button').click(function() {
   changeUser();
+  closeForm();
+  $('#submit-user-button').prop('disabled', true);
+})
+
+$('#user-id-input').keyup(function() {
+  if (0 < $(this).val() && $(this).val() < 51) {
+    $('#submit-user-button').prop('disabled', false);
+    $('#user-id-error').addClass('hide');
+  } else {
+    $('#submit-user-button').prop('disabled', true);
+    $('#user-id-error').removeClass('hide');
+  }
+})
+
+$('.cancel-button').click(function() {
+  closeForm();
+  $('#submit-user-button').prop('disabled', true);
+})
+
+function closeForm() {
   changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
-})
+};
 
 function changeUser() {
   let newUserId = parseInt($('#user-id-input').val());

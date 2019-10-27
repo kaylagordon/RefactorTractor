@@ -110,6 +110,12 @@ form {
   }
 }
 
+.error-message {
+  color: $accent-color;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
 .update-button {
   border-color: $accent-color;
 }
