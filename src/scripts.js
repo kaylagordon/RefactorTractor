@@ -123,8 +123,7 @@ $('#update-sleep-button').click(function() {
 
 $('#submit-user-button').click(function() {
   changeUser();
-  closeForm();
-  $('#submit-user-button').prop('disabled', true);
+  closeForm('#submit-user-button');
 })
 
 $('#user-id-input').keyup(function() {
@@ -175,30 +174,27 @@ function showError(condition, errorMessage) {
 
 $('#submit-steps-button').click(function() {
   // ADD POSTING HERE
-  closeForm();
-  $('#submit-steps-button').prop('disabled', true);
+  closeForm('#submit-steps-button');
 })
 
 $('#submit-hydration-button').click(function() {
   // ADD POSTING HERE
-  closeForm();
-  $('#submit-hydration-button').prop('disabled', true);
+  closeForm('#submit-hydration-button');
 })
 
 $('#submit-sleep-button').click(function() {
   // ADD POSTING HERE
-  closeForm();
-  $('#submit-sleep-button').prop('disabled', true);
+  closeForm('#submit-sleep-button');
 })
 
 $('.cancel-button').click(function() {
-  closeForm();
-  $('#submit-user-button').prop('disabled', true);
+  closeForm(event.target.nextElementSibling);
 })
 
-function closeForm() {
+function closeForm(submitButton) {
   changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
+  $(submitButton).prop('disabled', true);
 };
 
 function changeUser() {
