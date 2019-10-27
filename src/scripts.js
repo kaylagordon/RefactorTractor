@@ -56,12 +56,12 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
   combinedData["hydrationData"] = values[2].hydrationData;
   combinedData["activityData"] = values[3].activityData;
   }).then(() => {
-    doAllThings(combinedData);
-    allGraphs();
+    populateData(combinedData);
+    populateGraphs();
   });
 
-function doAllThings(data) {
-userIdNum = generateRandomUserId();
+function populateData(data, userId) {
+userIdNum = userId || generateRandomUserId();
 currentDate = getDate();
 userRepo = new UserRepository(data.userData);
 user = userRepo.returnUserData(userIdNum);
@@ -104,27 +104,59 @@ $('#winner-name').text(returnFriendChallengeWinner(friendNames))
 $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
 $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
 }
+
 $('#change-user-button').click(function() {
-  $('#user-id-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#user-id-form'))
 })
+
 $('#update-steps-button').click(function() {
-  $('#update-steps-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#update-steps-form'))
 })
+
 $('#update-hydration-button').click(function() {
-  $('#update-hydration-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#update-hydration-form'))
 })
+
 $('#update-sleep-button').click(function() {
-  $('#update-sleep-form').toggleClass('hide');
-  $('.cover').toggleClass('hide');
+  changeFormDisplay($('#update-sleep-form'))
 })
-$('.update-button').click(function() {
-  $(event.target).closest('form').toggleClass('hide');
+
+$('#submit-user-button').click(function() {
+  changeUser();
+  closeForm();
+  $('#submit-user-button').prop('disabled', true);
+})
+
+$('#user-id-input').keyup(function() {
+  if (0 < $(this).val() && $(this).val() < 51) {
+    $('#submit-user-button').prop('disabled', false);
+    $('#user-id-error').addClass('hide');
+  } else {
+    $('#submit-user-button').prop('disabled', true);
+    $('#user-id-error').removeClass('hide');
+  }
+})
+
+$('.cancel-button').click(function() {
+  closeForm();
+  $('#submit-user-button').prop('disabled', true);
+})
+
+function closeForm() {
+  changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
+};
+
+function changeUser() {
+  let newUserId = parseInt($('#user-id-input').val());
+  populateData(combinedData, newUserId);
+  populateGraphs();
+}
+
+function changeFormDisplay(element) {
+  element.toggleClass('hide');
   $('.cover').toggleClass('hide');
-})
+}
 
 function getDate() {
   var m = new Date();
@@ -187,7 +219,7 @@ function returnDatesOfWeek(userId, date) {
   let index = userData.findIndex((data) => data.date === date);
   return userData.splice(index - 6, 7).map(day => day.date);
 }
-function allGraphs() {
+function populateGraphs() {
 Chart.defaults.global.defaultFontColor = 'white';
 var ctx = $('#user-water-by-week');
 var hydrationByWeek = new Chart(ctx, {
