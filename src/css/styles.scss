@@ -13,6 +13,23 @@ body {
   background-color: $primary-background-color;
 }
 
+container {
+  background-color: $secondary-background-color;
+  border-radius: 10px;
+  border: solid 2px $border-color;
+  box-shadow: 0 0 5px $shadow-color;
+  break-inside: avoid;
+  color: $primary-text-color;
+  @include make-flex(column, center)
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 100%;
+  &:hover {
+    box-shadow: 0 0 10px $shadow-hover-color;
+    transition: 0.4s;
+  }
+}
+
 header {
   background-color: $secondary-background-color;
   color: $primary-text-color;
@@ -29,29 +46,68 @@ header {
   }
 }
 
+section {
+  button {
+    @extend container;
+    background-color: $secondary-background-color;
+    @include make-font(20px, bold, $accent-color)
+    margin-top: 15px;
+    padding: .5%;
+    outline: none;
+    &:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+  }
+}
+
+form {
+  @extend container;
+  position: absolute;
+  width: 40%;
+  margin-left: 30%;
+  margin-top: 50px;
+  z-index: 2000;
+  input {
+    border-radius: 5px;
+    border: none;
+    @include make-font(16px, normal, $primary-background-color)
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    width: 35%;
+    &:hover {
+      transform: scale(1.1);
+      cursor: text;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+button {
+  @extend container;
+  border-color:$accent-color;
+  background-color: $secondary-background-color;
+  @include make-font(16px, bold, $primary-text-color)
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 1%;
+  outline: none;
+  width: 35%;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
 main {
   break-inside: avoid;
   column-count: 3;
   column-width: 15em;
   padding: 10px;
   width: 100%;
-}
-
-container {
-  background-color: $secondary-background-color;
-  border-radius: 10px;
-  border: solid 2px $border-color;
-  box-shadow: 0 0 5px $shadow-color;
-  break-inside: avoid;
-  color: $primary-text-color;
-  @include make-flex(column, center)
-  margin-bottom: 20px;
-  padding: 20px;
-  width: 100%;
-  &:hover {
-    box-shadow: 0 0 10px $shadow-hover-color;
-    transition: 0.4s;
-  }
 }
 
 h1 {
@@ -110,6 +166,21 @@ img {
   @include make-font(20px, bold, $accent-color);
   padding-left: 2px;
   padding-right: 2px;
+}
+
+.hide {
+  display: none;
+}
+
+.cover {
+  background-color: black;
+  opacity: 0.8;
+  width: 100%;
+  height: 400%;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
 }
 
 @import 'media-queries';
