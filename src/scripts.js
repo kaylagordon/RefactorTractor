@@ -574,12 +574,6 @@ var stepTrend = new Chart(ctx, {
       data: Object.values(stepsTrend).reverse(),
       backgroundColor: [
         'rgb(221, 160, 221, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(192, 192, 192, 0.2)'
       ],
       borderColor: [
         'rgba(221, 160, 221, 1)',
