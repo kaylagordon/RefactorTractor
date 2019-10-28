@@ -14,13 +14,13 @@ body {
 }
 
 container {
+  @include make-flex(column, center)
   background-color: $secondary-background-color;
   border-radius: 10px;
   border: solid 2px $border-color;
   box-shadow: 0 0 5px $shadow-color;
   break-inside: avoid;
   color: $primary-text-color;
-  @include make-flex(column, center)
   margin-bottom: 20px;
   padding: 20px;
   width: 100%;
@@ -31,9 +31,9 @@ container {
 }
 
 header {
+  @include make-flex(row, space-between);
   background-color: $secondary-background-color;
   color: $primary-text-color;
-  @include make-flex(row, space-between);
   height: 60px;
   margin-bottom:10px;
   padding: 0 10px;
@@ -49,36 +49,34 @@ header {
 section {
   button {
     @extend container;
-    background-color: $secondary-background-color;
     @include make-font(20px, bold, $accent-color)
+    background-color: $secondary-background-color;
     margin-top: 15px;
-    padding: .5%;
     outline: none;
+    padding: .5%;
     &:hover {
-      transform: scale(1.1);
-      cursor: pointer;
+      @include add-hover-state(pointer);
     }
   }
 }
 
 form {
   @extend container;
-  position: absolute;
-  width: 40%;
   margin-left: 30%;
   margin-top: 50px;
+  position: absolute;
+  width: 40%;
   z-index: 2000;
   input {
+    @include make-font(16px, normal, $primary-background-color)
     border-radius: 5px;
     border: none;
-    @include make-font(16px, normal, $primary-background-color)
-    padding: 8px;
-    margin-top: 5px;
     margin-bottom: 20px;
+    margin-top: 5px;
+    padding: 8px;
     width: 35%;
     &:hover {
-      transform: scale(1.1);
-      cursor: text;
+      @include add-hover-state(text);
     }
     &:focus {
       outline: none;
@@ -98,32 +96,27 @@ form {
 
 .form-button-container {
   display: flex;
-  width: 80%;
   justify-content: center;
+  width: 80%;
 }
 
 .form-button {
   @extend container;
-  background-color: $secondary-background-color;
   @include make-font(16px, bold, $primary-text-color)
-  margin-top: 15px;
-  margin-bottom: 10px;
-  margin: 10px;
-  padding: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  background-color: $secondary-background-color;
+  margin: 15px 10px;
   outline: none;
+  padding: 5px 10px;
   width: 40%;
   &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
+    @include add-hover-state(pointer);
   }
 }
 
 .error-message {
   color: $accent-color;
-  margin-top: -15px;
   margin-bottom: 10px;
+  margin-top: -15px;
 }
 
 .update-button {
@@ -147,9 +140,9 @@ h1 {
 }
 
 h2 {
+  @include make-font(20px, normal, $primary-text-color);
   border-bottom: solid 1px $border-color;
   display: block;
-  @include make-font(20px, normal, $primary-text-color);
   margin-bottom:15px;
   padding-bottom: 15px;
 }
@@ -176,8 +169,7 @@ img {
 
 .you-vs-world {
   h3 {
-    margin-bottom: 4px;
-    margin-top: 4px;
+    margin: 4px 0px;
   }
   span {
     color: $accent-color;
@@ -196,8 +188,7 @@ img {
 
 #republic-plaza-challenge {
   @include make-font(20px, bold, $accent-color);
-  padding-left: 2px;
-  padding-right: 2px;
+  padding: 0px 2px;
 }
 
 .hide {
@@ -206,13 +197,11 @@ img {
 
 .cover {
   background-color: black;
-  opacity: 0.8;
-  width: 100%;
   height: 400%;
+  opacity: 0.8;
   position: absolute;
+  width: 100%;
   z-index: 1000;
-  top: 0;
-  left: 0;
 }
 
 @import 'media-queries';

@@ -180,7 +180,9 @@ function postData(destination, data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(response => response.json()).then(() => showStatus('#success-message')).catch(() => showStatus('#failure-message'));
+  })
+  .then(() => showStatus('#success-message'))
+  .catch(() => showStatus('#failure-message'));
 }
 
 function showStatus(message) {
