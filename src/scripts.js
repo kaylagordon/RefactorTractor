@@ -180,7 +180,12 @@ function postData(destination, data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  }).then(response => response.json()).then(json => console.log(json));
+  }).then(response => response.json()).then(() => showStatus('#success-message')).catch(() => showStatus('#failure-message'));
+}
+
+function showStatus(message) {
+  $(message).removeClass('hide');
+  setTimeout(() => $(message).addClass('hide'), 2000)
 }
 
 $('#submit-hydration-button').click(function() {

@@ -86,6 +86,16 @@ form {
   }
 }
 
+#failure-message {
+  @extend form;
+  background-color: #7D0201;
+}
+
+#success-message {
+  @extend form;
+  background-color: #1E812B;
+}
+
 .form-button-container {
   display: flex;
   width: 80%;
@@ -191,7 +201,7 @@ img {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .cover {
