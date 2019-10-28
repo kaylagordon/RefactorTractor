@@ -1,18 +1,24 @@
-$break-mobile: 420px;
-$break-ipad: 775px;
-
 header {
   @media only screen and (max-width: $break-mobile) {
     height: 10%;
+    @include make-flex(column, space-between);
   }
 }
 
 main {
 @media only screen and (max-width: $break-ipad) and (min-width: 421px) {
     column-count: 2;
+    form {
+      width: 80%;
+      margin: 10%;
+    }
   }
 
 @media only screen and (max-width: $break-mobile) {
     column-count: 1;
+    form {
+      width: 97%;
+      margin: auto;
+    }
   }
 }
