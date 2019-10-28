@@ -27,32 +27,40 @@
       <form id='update-steps-form' action="index.html" method="post" class="hide">
         <h2>Update Steps</h2>
         <p>STEPS TAKEN TODAY:</p>
-        <input type="text" name="" value="" alt="Enter your steps taken in this textbox">
+        <input type="text" id='steps-input' alt="Enter your steps taken in this textbox">
+        <p class='error-message hide' id='steps-error'>Please enter a valid number.</p>
         <p>FLIGHTS CLIMBED TODAY:</p>
-        <input type="text" name="" value="" alt="Enter your flights climbed in this textbox">
+        <input type="text" id='stairs-input' alt="Enter your flights climbed in this textbox">
+        <p class='error-message hide' id='stairs-error'>Please enter a valid number.</p>
+        <p>MINUTES ACTIVE TODAY:</p>
+        <input type="text" id='active-minutes-input' alt="Enter your minutes active in this textbox">
+        <p class='error-message hide' id='active-minutes-error'>Please enter a valid number.</p>
         <div class='form-button-container'>
           <button type="button" name="button" class='form-button cancel-button'>CANCEL</button>
-          <button type="button" name="button" class='form-button update-button' id='submit-user-button'>UPDATE</button>
+          <button type="button" name="button" class='form-button update-button' id='submit-steps-button' disabled>UPDATE</button>
         </div>
       </form>
       <form id='update-hydration-form' action="index.html" method="post" class="hide">
         <h2>Update Hydration</h2>
         <p>OUNCES DRANK TODAY:</p>
-        <input type="text" name="" value="" alt="Enter your ounces drank in this textbox">
+        <input type="text" id='hydration-input' alt="Enter your ounces drank in this textbox">
+        <p class='error-message hide' id='hydration-error'>Please enter a valid number.</p>
         <div class='form-button-container'>
           <button type="button" name="button" class='form-button cancel-button'>CANCEL</button>
-          <button type="button" name="button" class='form-button update-button' id='submit-user-button'>UPDATE</button>
+          <button type="button" name="button" class='form-button update-button' id='submit-hydration-button' disabled>UPDATE</button>
         </div>
       </form>
       <form id='update-sleep-form' action="index.html" method="post" class="hide">
         <h2>Update Sleep</h2>
         <p>HOURS SLEPT LAST NIGHT:</p>
-        <input type="text" name="" value="" alt="Enter your hours slept in this textbox">
+        <input type="text" id='sleep-hours-input' alt="Enter your hours slept in this textbox">
+        <p class='error-message hide' id='sleep-hours-error'>Please enter a valid number.</p>
         <p>SLEEP QUALITY LAST NIGHT:</p>
-        <input type="text" name="" value="" alt="Enter your sleep quality in this textbox">
+        <input type="text" id='sleep-quality-input' alt="Enter your sleep quality in this textbox">
+        <p class='error-message hide' id='sleep-quality-error'>Please enter a valid number.</p>
         <div class='form-button-container'>
           <button type="button" name="button" class='form-button cancel-button'>CANCEL</button>
-          <button type="button" name="button" class='form-button update-button' id='submit-user-button'>UPDATE</button>
+          <button type="button" name="button" class='form-button update-button' id='submit-sleep-button' disabled>UPDATE</button>
         </div>
       </form>
       <section>

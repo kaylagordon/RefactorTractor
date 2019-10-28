@@ -123,28 +123,111 @@ $('#update-sleep-button').click(function() {
 
 $('#submit-user-button').click(function() {
   changeUser();
-  closeForm();
-  $('#submit-user-button').prop('disabled', true);
+  closeForm('#submit-user-button');
 })
 
 $('#user-id-input').keyup(function() {
-  if (0 < $(this).val() && $(this).val() < 51) {
-    $('#submit-user-button').prop('disabled', false);
-    $('#user-id-error').addClass('hide');
-  } else {
-    $('#submit-user-button').prop('disabled', true);
-    $('#user-id-error').removeClass('hide');
+  enableButton(0 < $(this).val() && $(this).val() < 51, '#submit-user-button');
+  showError(0 < $(this).val() && $(this).val() < 51, '#user-id-error');
+})
+
+$('#hydration-input').keyup(function() {
+  enableButton(0 < $(this).val(), '#submit-hydration-button');
+  showError(0 < $(this).val(), '#hydration-error');
+})
+
+$('#steps-input').keyup(function() {
+  enableButton(0 < $(this).val() && 0 < $('#stairs-input').val() && 0 < $('#active-minutes-input').val() && $('#active-minutes-input').val() <= 1440, '#submit-steps-button');
+  showError(0 < $(this).val(), '#steps-error');
+});
+
+$('#stairs-input').keyup(function() {
+  enableButton(0 < $(this).val() && 0 < $('#steps-input').val() && 0 < $('#active-minutes-input').val() && $('#active-minutes-input').val() <= 1440, '#submit-steps-button');
+  showError(0 < $(this).val(), '#stairs-error');
+});
+
+$('#active-minutes-input').keyup(function() {
+  enableButton(0 < $(this).val() && $(this).val() <= 1440 && 0 < $('#stairs-input').val() && 0 < $('#steps-input').val(), '#submit-steps-button');
+  showError(0 < $(this).val() && $(this).val() <= 1440, '#active-minutes-error');
+});
+
+$('#sleep-hours-input').keyup(function() {
+  enableButton(0 < $(this).val() && $(this).val() <= 24 && 0 < $('#sleep-quality-input').val() && $('#sleep-quality-input').val() <= 5, '#submit-sleep-button');
+  showError(0 < $(this).val() && $(this).val() <= 24, '#sleep-hours-error');
+});
+
+$('#sleep-quality-input').keyup(function() {
+  enableButton(0 < $(this).val() && $(this).val() <= 5 && 0 < $('#sleep-hours-input').val() && $('#sleep-hours-input').val() <= 24, '#submit-sleep-button');
+  showError(0 < $(this).val() && $(this).val() <= 5, '#sleep-quality-error');
+});
+
+$('#submit-steps-button').click(function() {
+  let dataToPost = {
+    userID: userIdNum,
+    date: currentDate,
+    numSteps: $('#steps-input').val(),
+    minutesActive: $('#active-minutes-input').val(),
+    flightsOfStairs: $('#stairs-input').val()
   }
+  postData('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/activity/activityData', dataToPost);
+  closeForm('#submit-steps-button');
+})
+
+function postData(destination, data) {
+  fetch(destination, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(response => response.json()).then(json => console.log(json));
+}
+
+$('#submit-hydration-button').click(function() {
+  let dataToPost = {
+    userID: userIdNum,
+    date: currentDate,
+    numOunces: $('#hydration-input').val()
+  }
+  postData('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/hydration/hydrationData', dataToPost);
+  closeForm('#submit-hydration-button');
+})
+
+$('#submit-sleep-button').click(function() {
+  let dataToPost = {
+    userID: userIdNum,
+    date: currentDate,
+    hoursSlept: $('#sleep-hours-input').val(),
+    sleepQuality: $('#sleep-quality-input').val()
+  }
+  postData('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/sleep/sleepData', dataToPost);
+  closeForm('#submit-sleep-button');
 })
 
 $('.cancel-button').click(function() {
-  closeForm();
-  $('#submit-user-button').prop('disabled', true);
+  closeForm(event.target.nextElementSibling);
 })
 
-function closeForm() {
+function enableButton(condition, submitButton) {
+  if (condition) {
+    $(submitButton).prop('disabled', false);
+  } else {
+    $(submitButton).prop('disabled', true);
+  }
+}
+
+function showError(condition, errorMessage) {
+  if (condition) {
+    $(errorMessage).addClass('hide');
+  } else {
+    $(errorMessage).removeClass('hide');
+  }
+}
+
+function closeForm(submitButton) {
   changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
+  $(submitButton).prop('disabled', true);
 };
 
 function changeUser() {
