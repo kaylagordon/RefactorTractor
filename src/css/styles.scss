@@ -86,12 +86,12 @@ form {
 
 #failure-message {
   @extend form;
-  background-color: #7D0201;
+  background-color: $error-color;
 }
 
 #success-message {
   @extend form;
-  background-color: #1E812B;
+  background-color: $success-color;
 }
 
 .form-button-container {

@@ -6,7 +6,13 @@ $primary-text-color: 	hsla(0, 0%, 100%, 1);
 $border-color: 	hsla(213, 16%, 73%, 1);
 $shadow-color: hsla(0, 0%, 40%, 1);
 $shadow-hover-color: hsla(0, 0%, 60%, 1);
+$error-color: hsla(0, 98%, 25%, 1);
+$success-color: hsla(128, 62%, 31%, 1);
 
 // FONT
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700&display=swap);
 $font: 'Open Sans', sans-serif;
+
+//MQ BREAKS
+$break-mobile: 420px;
+$break-ipad: 1100px;

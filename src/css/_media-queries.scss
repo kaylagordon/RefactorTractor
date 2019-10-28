@@ -1,6 +1,3 @@
-$break-mobile: 420px;
-$break-ipad: 1100px;
-
 header {
   @media only screen and (max-width: $break-mobile) {
     height: 10%;
