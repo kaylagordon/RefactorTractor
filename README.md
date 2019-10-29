@@ -26,6 +26,5 @@ As the third project of Module 2, we were tasked with taking another team's FitL
 - Mocha and Chai testing suite
 
 ## Preview
-![ScreenShot]()
+![screenshot](https://user-images.githubusercontent.com/51416773/67809462-574c5180-fa5e-11e9-9548-d5e137dc2aae.png)
 ![gif](https://media.giphy.com/media/J0CwIEQfKN3Ac4wSTc/giphy.gif)
-![Testing ScreenShot]()
