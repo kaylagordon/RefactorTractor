@@ -45,9 +45,9 @@ let activityData = fetch('https://fe-apps.herokuapp.com/api/v1/fitlit/1908/activ
 
 let combinedData = {
   "userData": {},
-  "sleepData":{},
-  "hydrationData":{},
-  "activityData":{}
+  "sleepData": {},
+  "hydrationData": {},
+  "activityData": {}
 };
 
 Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function (values) {
@@ -55,54 +55,55 @@ Promise.all([ userData, sleepData, hydrationData, activityData ]).then(function 
   combinedData["sleepData"] = values[1].sleepData;
   combinedData["hydrationData"] = values[2].hydrationData;
   combinedData["activityData"] = values[3].activityData;
-  }).then(() => {
+})
+  .then(() => {
     populateData(combinedData);
     populateGraphs();
   });
 
 function populateData(data, userId) {
-userIdNum = userId || generateRandomUserId();
-currentDate = getDate();
-userRepo = new UserRepository(data.userData);
-user = userRepo.returnUserData(userIdNum);
-newUser = new User(user);
-hydration = new Hydration(data.hydrationData);
-sleep = new Sleep(data.sleepData);
-activity = new Activity(data.activityData);
-friendNames = returnFriendInfo('name');
-friendSteps = returnFriendInfo('steps');
-stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
+  userIdNum = userId || generateRandomUserId();
+  currentDate = getDate();
+  userRepo = new UserRepository(data.userData);
+  user = userRepo.returnUserData(userIdNum);
+  newUser = new User(user);
+  hydration = new Hydration(data.hydrationData);
+  sleep = new Sleep(data.sleepData);
+  activity = new Activity(data.activityData);
+  friendNames = returnFriendInfo('name');
+  friendSteps = returnFriendInfo('steps');
+  stepsTrend = (activity.returnThreeDayStepStreak(user.id)[0]);
 
-$('#user-name').text(newUser.returnUserFirstName());
-$('#current-date').text(currentDate);
-$('#user-info-name').text(newUser.name);
-$('#user-info-email').text(newUser.email);
-$('#user-info-address').text(newUser.address);
-$('#user-info-step-goal').text(newUser.dailyStepGoal);
-$('#average-step-goal-all-users').text(userRepo.returnAllUsersAverageStepGoal());
-$('#user-water-by-day').text(hydration.returnActionByDate(user.id, currentDate, 'numOunces'));
-$('#user-sleep-by-day').text(sleep.returnActionByDate(user.id, currentDate, 'hoursSlept'));
-$('#user-sleep-quality-by-day').text(sleep.returnActionByDate(user.id, currentDate, 'sleepQuality'));
-$('#user-sleep-by-week').text(sleep.returnActionByWeek(user.id, currentDate, 'hoursSlept'));
-$('#user-sleep-quality-by-week').text(sleep.returnActionByDate(user.id, currentDate, 'sleepQuality'));
-$('#user-average-sleep-quality').text(sleep.returnAverageSleepInfo(user.id, 'sleepQuality'));
-$('#user-average-hours-slept').text(sleep.returnAverageSleepInfo(user.id, 'hoursSlept'));
-$('#user-current-step-count').text(activity.returnActionByDate(user.id, currentDate, 'numSteps'));
-$('#user-rested').text(displayStatus(sleep.isRested, '#sleep-status', '#sleep-comment', '../images/ghost-happy.svg', '../images/ghost-sad.svg', 'You\'ve been getting enough sleep!', 'Getting 8 hours of sleep will make you more productive!'));
-$('#user-current-mins-active').text(activity.returnActionByDate(user.id, currentDate, 'minutesActive'));
-$('#user-current-miles-walked').text(activity.returnMilesWalkedByDate(user, currentDate));
-$('#user-current-step-count-vs-average').text(activity.returnActionByDate(user.id, currentDate, 'numSteps'));
-$('#all-users-average-step-count').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'numSteps'));
-$('#user-current-stairs-climbed').text(activity.returnActionByDate(user.id, currentDate, 'flightsOfStairs'));
-$('#all-users-average-stairs-climbed').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'flightsOfStairs'));
-$('#user-current-active-mins').text(activity.returnActionByDate(user.id, currentDate, 'minutesActive'));
-$('#all-users-average-active-mins').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'minutesActive'));
-$('#user-step-count-by-week').text(activity.returnActionByWeek(user.id, currentDate, 'numSteps'))
-$('#user-stairs-climbed-by-week').text(activity.returnActionByWeek(user.id, currentDate, 'flightsOfStairs'))
-$('#user-mins-active-by-week').text(activity.returnActionByWeek(user.id, currentDate, 'minutesActive'))
-$('#winner-name').text(returnFriendChallengeWinner(friendNames))
-$('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
-$('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
+  $('#user-name').text(newUser.returnUserFirstName());
+  $('#current-date').text(currentDate);
+  $('#user-info-name').text(newUser.name);
+  $('#user-info-email').text(newUser.email);
+  $('#user-info-address').text(newUser.address);
+  $('#user-info-step-goal').text(newUser.dailyStepGoal);
+  $('#average-step-goal-all-users').text(userRepo.returnAllUsersAverageStepGoal());
+  $('#user-water-by-day').text(hydration.returnActionByDate(user.id, currentDate, 'numOunces'));
+  $('#user-sleep-by-day').text(sleep.returnActionByDate(user.id, currentDate, 'hoursSlept'));
+  $('#user-sleep-quality-by-day').text(sleep.returnActionByDate(user.id, currentDate, 'sleepQuality'));
+  $('#user-sleep-by-week').text(sleep.returnActionByWeek(user.id, currentDate, 'hoursSlept'));
+  $('#user-sleep-quality-by-week').text(sleep.returnActionByDate(user.id, currentDate, 'sleepQuality'));
+  $('#user-average-sleep-quality').text(sleep.returnAverageSleepInfo(user.id, 'sleepQuality'));
+  $('#user-average-hours-slept').text(sleep.returnAverageSleepInfo(user.id, 'hoursSlept'));
+  $('#user-current-step-count').text(activity.returnActionByDate(user.id, currentDate, 'numSteps'));
+  $('#user-rested').text(displayStatus(sleep.isRested, '#sleep-status', '#sleep-comment', '../images/ghost-happy.svg', '../images/ghost-sad.svg', 'You\'ve been getting enough sleep!', 'Getting 8 hours of sleep will make you more productive!'));
+  $('#user-current-mins-active').text(activity.returnActionByDate(user.id, currentDate, 'minutesActive'));
+  $('#user-current-miles-walked').text(activity.returnMilesWalkedByDate(user, currentDate));
+  $('#user-current-step-count-vs-average').text(activity.returnActionByDate(user.id, currentDate, 'numSteps'));
+  $('#all-users-average-step-count').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'numSteps'));
+  $('#user-current-stairs-climbed').text(activity.returnActionByDate(user.id, currentDate, 'flightsOfStairs'));
+  $('#all-users-average-stairs-climbed').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'flightsOfStairs'));
+  $('#user-current-active-mins').text(activity.returnActionByDate(user.id, currentDate, 'minutesActive'));
+  $('#all-users-average-active-mins').text(activity.returnAvgActivityAllUsersByDate(currentDate, 'minutesActive'));
+  $('#user-step-count-by-week').text(activity.returnActionByWeek(user.id, currentDate, 'numSteps'))
+  $('#user-stairs-climbed-by-week').text(activity.returnActionByWeek(user.id, currentDate, 'flightsOfStairs'))
+  $('#user-mins-active-by-week').text(activity.returnActionByWeek(user.id, currentDate, 'minutesActive'))
+  $('#winner-name').text(returnFriendChallengeWinner(friendNames))
+  $('#user-water-trend-week').text(displayStatus(hydration.returnDidUserDrinkEnoughWater(user.id, currentDate), '#water-status', '#water-comment', '../images/glass-full.svg', '../images/glass-empty.svg', 'Keep up the good work! You\'ve averaged more than 64 ounces per day this week', 'You need more water. Make sure you\'re staying hydrated!'));
+  $('#republic-plaza-challenge').text(activity.republicPlazaChallenge(user.id))
 }
 
 $('#change-user-button').click(function() {
@@ -181,8 +182,8 @@ function postData(destination, data) {
     },
     body: JSON.stringify(data)
   })
-  .then(() => showStatus('#success-message'))
-  .catch(() => showStatus('#failure-message'));
+    .then(() => showStatus('#success-message'))
+    .catch(() => showStatus('#failure-message'));
 }
 
 function showStatus(message) {
@@ -235,7 +236,7 @@ function closeForm(submitButton) {
   changeFormDisplay($(event.target).closest('form'))
   $(event.target).closest('form')[0].reset();
   $(submitButton).prop('disabled', true);
-};
+}
 
 function changeUser() {
   let newUserId = parseInt($('#user-id-input').val());
@@ -252,9 +253,9 @@ function getDate() {
   var m = new Date();
   var dateString =
     m.getUTCFullYear() + "/" +
-    ("0" + (m.getUTCMonth()+1)).slice(-2) + "/" +
+    ("0" + (m.getUTCMonth() + 1)).slice(-2) + "/" +
     ("0" + m.getUTCDate()).slice(-2)
-    return dateString
+  return dateString
 }
 
 function generateRandomUserId() {
@@ -277,11 +278,11 @@ function displayStatus(condition, status, commentLocation, trueImage, falseImage
 
 function populateFriends(userFriends) {
   let friends = userFriends.map(friend => {
-  let userFriend = new User(userRepo.returnUserData(friend))
-  return ({
-    id: userFriend.id,
-    name: userFriend.returnUserFirstName(),
-    steps: (activity.returnActionByWeek(userFriend.id, currentDate, 'numSteps')).reduce((acc, day) => acc += day)})
+    let userFriend = new User(userRepo.returnUserData(friend))
+    return ({
+      id: userFriend.id,
+      name: userFriend.returnUserFirstName(),
+      steps: (activity.returnActionByWeek(userFriend.id, currentDate, 'numSteps')).reduce((acc, day) => acc += day)})
   });
   friends.push({
     id: user.id,
@@ -310,292 +311,292 @@ function returnDatesOfWeek(userId, date) {
   return userData.splice(index - 6, 7).map(day => day.date);
 }
 function populateGraphs() {
-Chart.defaults.global.defaultFontColor = 'white';
-var ctx = $('#user-water-by-week');
-var hydrationByWeek = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: returnDatesOfWeek(user.id, currentDate),
-    datasets: [{
-      label: 'ounces',
-      data: hydration.returnActionByWeek(user.id, currentDate, 'numOunces'),
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgb(221, 160, 221, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(192, 192, 192, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    legend: {
-    },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
+  Chart.defaults.global.defaultFontColor = 'white';
+  var ctx = $('#user-water-by-week');
+  var hydrationByWeek = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: returnDatesOfWeek(user.id, currentDate),
+      datasets: [{
+        label: 'ounces',
+        data: hydration.returnActionByWeek(user.id, currentDate, 'numOunces'),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgb(221, 160, 221, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(192, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
       }]
-    }
-  }
-});
-
-var ctx = $('#user-sleep-by-week');
-var sleepQualityHrsByWeek = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: returnDatesOfWeek(user.id, currentDate),
-    datasets: [{
-      label: 'hours',
-      data: sleep.returnActionByWeek(user.id, currentDate, 'hoursSlept'),
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgb(221, 160, 221, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(192, 192, 192, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
     },
-    {
-      label: 'quality score',
-      data: sleep.returnActionByWeek(user.id, currentDate, 'sleepQuality'),
-      backgroundColor: [
-        'rgb(221, 160, 221, 0.2)',
+    options: {
+      legend: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
 
-      ],
-      borderColor: [
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)',
-        'rgba(255, 99, 132, 1)',
-      ],
-      borderWidth: 1,
-      type: 'line',
-    }]
-  },
-  options: {
-    legend: {
+  var ctx = $('#user-sleep-by-week');
+  var sleepQualityHrsByWeek = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: returnDatesOfWeek(user.id, currentDate),
+      datasets: [{
+        label: 'hours',
+        data: sleep.returnActionByWeek(user.id, currentDate, 'hoursSlept'),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgb(221, 160, 221, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(192, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: 'quality score',
+        data: sleep.returnActionByWeek(user.id, currentDate, 'sleepQuality'),
+        backgroundColor: [
+          'rgb(221, 160, 221, 0.2)',
+
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+        ],
+        borderWidth: 1,
+        type: 'line',
+      }]
     },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
+    options: {
+      legend: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
+  });
 
-var ctx = $('#user-step-count-by-week');
-var stepsByWeek = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: returnDatesOfWeek(user.id, currentDate),
-    datasets: [{
-      label: 'steps',
-      data: activity.returnActionByWeek(user.id, currentDate, 'numSteps'),
-      backgroundColor: [
-        'rgba(221, 160, 221, 0.2)',
-      ],
-      borderColor: [
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
+  var ctx = $('#user-step-count-by-week');
+  var stepsByWeek = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: returnDatesOfWeek(user.id, currentDate),
+      datasets: [{
+        label: 'steps',
+        data: activity.returnActionByWeek(user.id, currentDate, 'numSteps'),
+        backgroundColor: [
+          'rgba(221, 160, 221, 0.2)',
+        ],
+        borderColor: [
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      },
+      ]
     },
-  ]
-  },
-  options: {
-    legend: {
+    options: {
+      legend: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+  var ctx = $('#user-mins-active-by-week');
+  var activityByWeek = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: returnDatesOfWeek(user.id, currentDate),
+      datasets: [{
+        label: 'active minutes',
+        data: activity.returnActionByWeek(user.id, currentDate, 'minutesActive'),
+        backgroundColor: [
+          'rgb(221, 160, 221, 0.2)',
+        ],
+        borderColor: [
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      }]
     },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
+    options: {
+      legend: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
+  });
 
-var ctx = $('#user-mins-active-by-week');
-var activityByWeek = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: returnDatesOfWeek(user.id, currentDate),
-    datasets: [{
-      label: 'active minutes',
-      data: activity.returnActionByWeek(user.id, currentDate, 'minutesActive'),
-      backgroundColor: [
-        'rgb(221, 160, 221, 0.2)',
-      ],
-      borderColor: [
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    legend: {
+  var ctx = $('#user-stairs-climbed-by-week');
+  var stairsByWeek = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: returnDatesOfWeek(user.id, currentDate),
+      datasets: [{
+        label: 'stairs climbed',
+        data: activity.returnActionByWeek(user.id, currentDate, 'flightsOfStairs'),
+        backgroundColor: [
+          'rgb(221, 160, 221, 0.2)',
+        ],
+        borderColor: [
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      }]
     },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
+    options: {
+      legend: {
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
+  });
 
-var ctx = $('#user-stairs-climbed-by-week');
-var stairsByWeek = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: returnDatesOfWeek(user.id, currentDate),
-    datasets: [{
-      label: 'stairs climbed',
-      data: activity.returnActionByWeek(user.id, currentDate, 'flightsOfStairs'),
-      backgroundColor: [
-        'rgb(221, 160, 221, 0.2)',
-      ],
-      borderColor: [
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    legend: {
+  var ctx = $('#friend-info');
+  var friendStepChallenge = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: friendNames,
+      datasets: [{
+        label: 'steps',
+        data: friendSteps,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgb(221, 160, 221, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(192, 192, 192, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
+      }]
     },
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
+    options: {
+      legend: {},
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
+  });
 
-var ctx = $('#friend-info');
-var friendStepChallenge = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: friendNames,
-    datasets: [{
-      label: 'steps',
-      data: friendSteps,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgb(221, 160, 221, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-        'rgba(192, 192, 192, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    legend: {},
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
+  var ctx = $('#step-trend');
+  var stepTrend = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Object.keys(stepsTrend).reverse(),
+      datasets: [{
+        label: 'steps',
+        data: Object.values(stepsTrend).reverse(),
+        backgroundColor: [
+          'rgb(221, 160, 221, 0.2)',
+        ],
+        borderColor: [
+          'rgba(221, 160, 221, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(192, 192, 192, 1)'
+        ],
+        borderWidth: 1
       }]
+    },
+    options: {
+      legend: {},
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
-
-var ctx = $('#step-trend');
-var stepTrend = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: Object.keys(stepsTrend).reverse(),
-    datasets: [{
-      label: 'steps',
-      data: Object.values(stepsTrend).reverse(),
-      backgroundColor: [
-        'rgb(221, 160, 221, 0.2)',
-      ],
-      borderColor: [
-        'rgba(221, 160, 221, 1)',
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(192, 192, 192, 1)'
-      ],
-      borderWidth: 1
-    }]
-  },
-  options: {
-    legend: {},
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-})
+  })
 }
