@@ -7,13 +7,11 @@ import activityTestData from '../test-data/activity-test-data';
 import userTestData from '../test-data/user-test-data.js';
 
 describe('Activity', () => {
-  let activity, user1, user2, user3, userID1;
+  let activity, user1, user3;
   beforeEach(() => {
     activity = new Activity(activityTestData);
     user1 = new User(userTestData[0]);
-    user2 = new User(userTestData[1]);
     user3 = new User(userTestData[2]);
-    userID1 = 1;
   });
 
   it('should be a function', function () {
